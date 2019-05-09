@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h2> JU Result Processing System </h2>
+		<br>
+		<h4>Student list of Session <span th:text="${studentlist[0].session}"> </span> ,  Department of <span th:text="${studentlist[0].dept}"> </span> </h4>
+		<table style="width:100%">
+		
+			<tr>
+				<td>Sudent Name</td>
+				<td>Exam Roll</td>
+				<td>Reg Number</td>
+				<td>Hall</td>
+				<td>Phone</td>
+				<td>Email</td>
+				<td>Operations</td>
+			</tr>
+			
+			<div th:each="student: ${studentlist}"> 
+				<tr>
+	   			 <td th:text="${student.name}" />
+	   			 <td th:text="${student.examRoll}" />
+	   			 <td th:text="${student.regNumber}" />
+	    		 <td th:text="${student.hall}" />
+	   			 <td th:text="${student.phone}" />
+	   			 <td th:text="${student.email}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> See student Degrees/Details </a> </td>
+				</tr>
+	 		</div> 
+	 	</table>
+		
+		
+		
+	</div>
+
+
+</body>
+
+</html>

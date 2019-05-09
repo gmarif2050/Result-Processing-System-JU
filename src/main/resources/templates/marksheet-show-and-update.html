@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h2> JU Result Processing System </h2>
+		<br>
+		<!-- <h4>Student TimeLine of <span th:text="${student.session}"> </span> ,  Department of <span th:text="${student.dept}"> </span> </h4>
+ -->	
+ 		<h4>Student Details::  </h4> 
+ 		
+ 		<table style="width:100%">
+		
+			<tr>
+				<td>Sudent Name</td>
+				<td>Exam Roll</td>
+				<td>Reg Number</td>
+				<td>Hall</td>
+				<td>Phone</td>
+				<td>Email</td>
+			</tr>
+			
+				<tr>
+	   			 <td th:text="${student.name}" />
+	   			 <td th:text="${student.examRoll}" />
+	   			 <td th:text="${student.regNumber}" />
+	    		 <td th:text="${student.hall}" />
+	   			 <td th:text="${student.phone}" />
+	   			 <td th:text="${student.email}" />
+				</tr>
+	 	
+	 	</table>
+	 	<br>
+	 	<h4>Degree Details:  </h4> 
+	 	
+	 	<table style="width:100%">
+			<tr>
+				<td> Degree Name </td>
+				<td> CGPA Upto Now </td>
+				<td> Operations </td>
+			</tr>
+			<tr>
+   			 <td th:text="${degree.degreeName}" />
+   			 <td th:text="${degree.cumulativeGPAtillNow}" />
+   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}(regNumber=${student.regNumber}, degreeId=${degree.degreeId})}"> View Final Exams of the Degree </a></td>
+			</tr>
+	 	</table>
+	 	
+
+		<br>
+		<h4>Final exam Details: </h4>
+		<table style="width:100%">
+		
+			<tr>
+				<td>Exam name</td>
+				<td>Obtained GPA</td>
+				<td>Operations</td>
+				<td> Generate PDF Result Sheet </td>
+			</tr>
+			
+				<tr>
+	   			 <td th:text="${exam.examName}" />
+	   			 <td th:text="${exam.GPA}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}/{examId}/generate-pdf (regNumber=${student.regNumber}, degreeId=${degree.degreeId}, examId=${exam.examId})}"> Export MarkSheet PDF! </a> </td>
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}/{examId} (regNumber=${student.regNumber}, degreeId=${degree.degreeId}, examId=${exam.examId})}"> See/update Mark Sheet of Final Exam! </a> </td>
+				</tr>
+	 	</table>
+	 	
+	 	<br>
+		<h4>Marks added for the exam: </h4>
+		<table style="width:100%">
+		
+			<tr>
+				<td>Course Number</td>
+				<td>Course Name</td>
+				<td>Obtained Mark(by 100)</td>
+				<td>Grade Point</td>
+				<td>Credit Hour</td>
+				<td>Operations</td>
+			</tr>
+			
+			<div th:each="mark: ${marklist}"> 
+				<tr>
+	   			 <td th:text="${mark.courseCode}" />
+	   			 <td th:text="${mark.courseName}" />
+	   			 <td th:text="${mark.markAchievedby100}" />
+				 <td th:text="${mark.gradePoint}" />
+	   			 <td th:text="${mark.noOfCredit}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}/{examId}/{courseId} (regNumber=${student.regNumber}, degreeId=${degree.degreeId}, examId=${exam.examId}, courseId=${exam.examId} )}"> Update mark! </a> </td>
+				</tr>
+	 		</div> 
+	 	</table>
+		
+	 	
+	 	<br><h4> Add Marksheet for the exam! </h4>
+	 	
+
+	 	<form th:action="@{/showDetailDegrees/{regNumber}/{degreeId}/{examId} (regNumber=${student.regNumber}, degreeId=${degree.degreeId}, examId=${exam.examId}) }" method="post">
+	
+			<input name="courseCode" th:value="${markObj.courseCode}" type="text" placeholder="Enter course Number!" required="required" class="form-control"/>
+			<input name="courseName" th:value="${markObj.courseName}" type="text" placeholder="Enter course Name!" required="required" class="form-control"/>
+			<input name="noOfCredit" th:value="${markObj.noOfCredit}" type="text" placeholder="Enter Number of credit Hour!" required="required" class="form-control"/>
+			<input name="markAchievedby100" th:value="${markObj.markAchievedby100}" type="text" placeholder="Enter Obtained Mark!" required="required" class="form-control"/>
+			<input name="gradePoint" th:value="${markObj.gradePoint}" type="text" placeholder="Enter Grade Point!" required="required" class="form-control"/>
+			
+			<button type="submit" class="btn btn-primary">Add Mark for this course to <span th:text="${exam.examName}" /> !</button>
+	
+		</form>
+	 		
+	 	
+		
+		
+		
+	</div>
+
+
+</body>
+
+</html>

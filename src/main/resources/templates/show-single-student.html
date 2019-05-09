@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h2> JU Result Processing System </h2>
+		<br>
+		<h3>Student List ALL </h3>
+		
+		<div th:each="student: ${studentlist}"> 
+			<tr>
+   			 <td th:text="${student.student_name}" />
+    		 <td th:text="${student.hall_name}" />
+   			 <td th:text="${student.dept_name}" />
+			</tr>
+ 		</div> 
+
+		
+		
+		
+	</div>
+
+
+</body>
+
+</html>

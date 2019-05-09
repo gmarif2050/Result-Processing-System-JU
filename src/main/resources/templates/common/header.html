@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.w3.org/1999/xhtml">
+	
+<head th:fragment="common-header">
+
+<meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<title>Le's Bookstore</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<link href="/css/non-responsive.css" rel="stylesheet" />
+
+<!-- data table -->
+<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
+
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="/css/style.css" rel="stylesheet" />
+
+<link rel="icon" href="/image/applie-touch-icon.png" />
+
+
+
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/client-v2/css/client-style.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<meta name="viewport" content="width=device-width, initial-scale=0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107061083-1"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.10/jquery.lazy.min.js"></script></head>
+
+</head>
+
+<body>
+
+<div th:fragment="jusite">
+
+<div class="container">
+<div class="row">
+    <div class="col-lg-4">
+        <a th:href=@{"/"}>
+            <img src="/media/image/logo-v3.png" alt="Jahangirnagar University" class="juniv-logo">
+        </a>
+	</div>
+    <div class="col-lg-8 text-right">
+        <div class="top-contact-info">
+            <a href="tel:880-2-7791045-51" class="d-inline-block">
+           	 <i class="fa fa-phone" aria-hidden="true"></i> 880-2-7791045-51</a>
+                
+             <a href="tel:880-2-7791052" class="d-inline-block">
+             <i class="fa fa-fax" aria-hidden="true"></i> Fax:880-2-7791052</a>
+             
+             <a href="mailto:registrar@juniv.edu" target="_top" class="d-inline-block">
+             <i class="fas fa-envelope"></i> registrar@juniv.edu</a>
+         </div>
+         
+          <div class="top-contact-info-2">
+                <a href="/login" class="d-inline-block"> Login </a> |
+                <a href="/discussion?type=JOB_CIRCULAR" class="d-inline-block"> Career </a> |
+                <a href="https://mail.google.com/a/juniv.edu/" target="_blank" class="d-inline-block"> Webmail </a> |
+                <a href="/custom/slug/contact-us" class="d-inline-block"> Contact </a>
+            </div>
+        </div>
+    </div>
+    
+    
+<!--     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-success"> -->
+<!--         <a href="#" class="navbar-brand">JU RESULT PROCESSING SYSTEM</a> -->
+<!--         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse4"> -->
+<!--             <span class="navbar-toggler-icon"></span> -->
+<!--         </button> -->
+
+<!--         <div class="collapse navbar-collapse" id="navbarCollapse4"> -->
+<!--             <div class="navbar-nav"> -->
+<!--                 <a th:href="@{/}" class="nav-item nav-link active">Home</a> -->
+<!--                 <a href="#" class="nav-item nav-link">About</a> -->
+<!--                 <a href="#" class="nav-item nav-link">Products</a> -->
+<!--             </div> -->
+<!--             <form class="form-inline ml-auto"> -->
+<!--                 <input type="text" class="form-control mr-sm-2" placeholder="Search"> -->
+<!--                 <button type="submit" class="btn btn-outline-light">Search</button> -->
+<!--             </form> -->
+<!--         </div> -->
+<!--     </nav> -->
+    
+</div>
+
+<div class="container" id="header-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success main-nav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+
+                                                                        
+  <li class="nav-item">
+      <a class="nav-link" href="/"> Home </a>
+  </li>
+   
+ <li class="nav-item dropdown">                                                                                                                         <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Administration
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			<a class="dropdown-item" href=""> Chancellor </a>
+			<a class="dropdown-item" href=""> Vice Chancellor </a>
+			<a class="dropdown-item" href=""> Pro Vice Chancellor </a>
+			<a class="dropdown-item" href=""> Treasurer </a>
+			<a class="dropdown-item" href=""> Registrar </a>
+			<a class="dropdown-item" href=""> Syndicate </a>
+			<a class="dropdown-item" href=""> Academic Council </a>
+			<a class="dropdown-item" href=""> Finance Committee </a>
+   </div>
+  </li>
+                                                                                              
+  <li class="nav-item">
+      <a class="nav-link" href="/academic-calendar"> Calendar </a>
+  </li>
+  
+ <li class="nav-item dropdown">                                                                                                                         <li class="nav-item dropdown">
+   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Faculties
+   </a>
+  
+   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         <a class="dropdown-item" href=""> Faculty of Arts & Humanities </a>       
+         <a class="dropdown-item" href=""> Faculty of Mathematical & Physical Sciences  </a> 
+         <a class="dropdown-item" href=""> Faculty of Social Sciences </a>       
+         <a class="dropdown-item" href=""> Faculty of Biological Sciences </a>
+         <a class="dropdown-item" href="">  Faculty of Business Studies </a>       
+         <a class="dropdown-item" href=""> Faculty of Law </a>      
+   </div>
+   
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Institutes
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="http://iba-ju.org/">
+                                                                          Institute of Business Administration
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/institute/iit">
+                                                                          Institute of Information Technology
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/institute/irs">
+                                                                          Institute of Remote Sensing
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/institute/biclc">
+                                                                          Bangabandhu Institute of Comparative Literature and Culture
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Center
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="/center/medical-centre">
+                                                                          Medical Centre
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/center/wmsrc">
+                                                                          Wazed Miah Science Research Center
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/center/students-counselling-and-guidance-centre">
+                                                                          Students Counselling and Guidance Centre
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="http://cetlju.juniv.edu/">
+                                                                          Centre of Excellence in Teaching & Learning
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/center/the-language-centre">
+                                                                          The Language Centre
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/center/teacher-student-centre">
+                                                                          Teacher-Student centre
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Offices
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="/center/vc-office">
+                                                                          Vice Chancellor Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/registrar-office">
+                                                                          Registrar Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/proctor-office">
+                                                                          Proctor Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/comptroller-office">
+                                                                          Comptroller Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/engineering-office">
+                                                                          Engineering Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/iqac">
+                                                                          IQAC
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/ictcell">
+                                                                          ICT Cell
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/planning-and-development-office">
+                                                                          Planning and Development Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/public-relation-office">
+                                                                          Public Relation Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/physical-training-office">
+                                                                          Physical Training Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/office-of-the-controller-of-examinations">
+                                                                          Office of the Controller of Examinations
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/internal-audit-office">
+                                                                          Internal Audit Office
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/university-library">
+                                                                          University Library
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/science-workshop">
+                                                                          Science Workshop
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/office/transport-office">
+                                                                          Transport Office
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Accommodations
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="/hall/meer-mosharraf-hossain-hall">
+                                                                          Mir Mosharraf Hossain Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/shaheed-salam-barkat-hall">
+                                                                          Shaheed Salam-Barkat Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/bangabandhu-sheikh-mujibur-rahman-hall">
+                                                                          Bangabandhu Sheikh Mujibur Rahman Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/al-beruni-hall">
+                                                                          Al Beruni Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/shaheed-rafiq-jabbar-hall">
+                                                                          Shaheed Rafiq-Jabbar Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/a-f-m-kamaluddin-hall">
+                                                                          A F M Kamaluddin Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/mowlana-bhashani-hall">
+                                                                          Mowlana Bhashani Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/bishwakabi-rabindranath-tagore-hall">
+                                                                          Bishwakabi Rabindranath Tagore Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/jahanara-imam-hall">
+                                                                          Jahanara Imam Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/nawab-faizunnesa-hall">
+                                                                          Nawab Faizunnesa Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/pritilata-hall">
+                                                                          Pritilata Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/fazilatunnesa-hall">
+                                                                          Fazilatunnesa Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/begum-khaleda-zia-hall">
+                                                                          Begum Khaleda Zia Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/sheikh-hasina-hall">
+                                                                          Sheikh Hasina Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/bangamata-begum-fazilatunnessa-mujib-hall">
+                                                                          Bangamata Begum Fazilatunnessa Mujib Hall
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/hall/begum-sufia-kamal-hall">
+                                                                          Begum Sufia Kamal Hall
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                              
+  <li class="nav-item">
+      <a class="nav-link" href="/teachers">
+                                                  People
+      </a>
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Campus Life
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="/facility/4156">
+                                                                          Auditorium
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/facility/4157">
+                                                                          Central Cafeteria
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/gallery">
+                                                                          Gallery
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/facility/3188">
+                                                                          TSC
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/facility/134">
+                                                                          Student's Accomodation
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                                                              <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Admission
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                                                      <a class="dropdown-item" href="https://ju-admission.org/">
+                                                                          Undergraduate 2018-2019
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/admission/graduate">
+                                                                          Graduate
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/admission/m.phil-phd">
+                                                                          M.Phil & PhD
+                  </a>
+                                                                                                                                                  <a class="dropdown-item" href="/admission/weekend-courses">
+                                                                              <i class="fa fa-asterisk no-padding no-margin animated infinite flash submenu"></i>
+                                                                          Weekend Courses
+                  </a>
+                                                                                          </div>
+  </li>
+                                                                                              
+  <li class="nav-item">
+      <a class="nav-link" href="/journal">
+                                                  Journals
+      </a>
+  </li>
+                                                                        
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+    
+
+
+
+
+
+
+
+<!-- <div class="container carousel-container"> -->
+<!--            <br> -->
+<!-- <div id="myCarousel" class="carousel slide" data-ride="carousel"> -->
+<!--     <ol class="carousel-indicators"> -->
+<!--           <li data-target="#myCarousel" data-slide-to="0"  class="active" ></li> -->
+<!--           <li data-target="#myCarousel" data-slide-to="1" ></li> -->
+<!--           <li data-target="#myCarousel" data-slide-to="2" ></li> -->
+<!--     </ol> -->
+<!-- 	<div class="carousel-inner"> -->
+	
+<!-- 	    <div class="carousel-item  active "> -->
+<!-- 	          <img class="first-slide " src="media/image/birds-at-ju.jpg" alt="Banner Image"> -->
+<!-- 				<div class="carousel-caption"> <h5> </h5> -->
+<!-- 	            </div> -->
+<!-- 	     </div> -->
+	
+<!-- 	     <div class="carousel-item "> -->
+<!-- 	          <img class="first-slide lazy" data-src="media/image/banner-songsaptak.jpg" alt="Banner Image"> -->
+<!-- 		 </div> -->
+	
+<!-- 	      <div class="carousel-item "> -->
+<!-- 	          <img class="first-slide lazy" data-src="/image/gallery/6452_bn01-7de609.jpg" alt="Banner Image"> -->
+<!-- 	               <div class="carousel-caption"> </div> -->
+<!-- 	      </div> -->
+<!-- 	</div> -->
+
+<!--     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> -->
+<!--         <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!--         <span class="sr-only">Previous</span> -->
+<!--     </a> -->
+<!--     <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> -->
+<!--         <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!--         <span class="sr-only">Next</span> -->
+<!--     </a> -->
+<!-- </div>         -->
+<!-- </div> -->
+
+<!--     </div> -->
+
+
+
+	
+	
+<div class="container">
+  
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+	<div class="item active">
+        <img src="media/image/bbh-banner.jpg" alt="BBH HALL" style="width:100%;">
+        <div class="carousel-caption">
+<!--           <h3>New York</h3> -->
+<!--           <p>We love the Big Apple!</p> -->
+        </div>
+      </div>
+
+     
+      <div class="item">
+        <img src="media/image/birds-at-ju.jpg" alt="Birds at ju" style="width:100%;">
+        <div class="carousel-caption">
+<!--           <h3>Los Angeles</h3> -->
+<!--           <p>LA is always so much fun!</p> -->
+        </div>
+      </div>
+    
+     
+      <div class="item">
+        <img src="media/image/banner-songsaptak.jpg" alt="Sangsaptak JU" style="width:100%;">
+        <div class="carousel-caption">
+<!--           <h3>Chicago</h3> -->
+<!--           <p>Thank you, Chicago!</p> -->
+        </div>
+      </div>
+      
+        
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+      
+	</div>
+
+
+
+
+<div th:fragment="footer">
+	<div class="container-fluid">
+    <div class="row separator"></div>
+    <div class="row footer">
+        <div class="container">
+            <div class="row footer-links">
+                <div class="col-md-3">
+                    <h6>USEFUL LINKS</h6>
+                    <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li><a href="/certificate" target="_blank">NOC & GO</a></li>
+                                                                                                                <li><a href="http://www.juniv.edu/custom/slug/forms" target="_blank">Download Form</a></li>
+                                                                                                                <li><a href="http://www.juniv.edu/discussion?type=TENDER" target="_self">Tender</a></li>
+                                                                                                                <li><a href="https://ju-regigraduate.org" target="_blank">Registered Graduates: Apply Online</a></li>
+                                                                        </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h6>ADMISSION LINKS</h6>
+                    <ul>
+                                                                                    <li><a href="https://ju-admission.org" target="_blank">Undergraduate Admission</a></li>
+                                                                                                                <li><a href="/admission/m.phil-phd" target="_self">M.Phil & PhD Admission</a></li>
+                                                                                                                <li><a href="https://ju-admission.org/apply/result" target="_blank">Admission Test Result</a></li>
+                                                                                                                <li><a href="/admission/weekend-courses" target="_self">Weekend Courses</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h6>OTHERS</h6>
+                    <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li><a href="/custom/slug/registered-graduate" target="_self">Registered Graduates List</a></li>
+                                                                                                                <li><a href="/teachers" target="_self">Faculty Members</a></li>
+                                                                                                                <li><a href="http://www.juniv.edu/office/ictcell" target="_self">ICT Cell</a></li>
+                                                                                                                <li><a href="mailto:webs@juniv.edu" target="_self">Feedback: webs@juniv.edu</a></li>
+                                                                                                                                                                                                                                                                                        </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <row>
+                        <div class="col-md-12">
+                            <img class="lazy" data-src="/media/image/ju_logo_original_v2.png"
+                                 style="width: 100px;background: white;border-radius: 5%;"/>
+                        </div>
+                    </row>
+                    <row>
+                        <div class="col-md-12 social-icons">
+                            <a href="https://www.facebook.com/edu.juniv"><i class="fab fa-facebook-f" data-pack="social"
+                                           data-tags="like, post, share"></i></a>
+
+
+                            <a href=""><i class="fab fa-twitter" data-pack="social"
+                                           data-tags="like, post, share"></i></a>
+
+                            <a href=""><i class="fab fa-linkedin-in" data-pack="social"
+                                           data-tags="like, post, share"></i></a>
+                        </div>
+                    </row>
+                </div>
+            </div>
+            <div class="row footer-copy-rights-text">
+                <div class="col-md-8">
+                    Jahangirnagar University, Savar, Dhaka-1342, Bangladesh. Telephone: PABX: 880-2-7791045-51, Fax: 880-2-7791052
+                </div>
+                <div class="col-md-4 text-md-right">
+                    © 2018 Jahangirnagar University
+                </div>
+            </div>
+        </div>
+    </div>
+</div></main>
+
+<script type="text/javascript">
+    $(function() {
+        $('.lazy').Lazy();
+    });
+
+    $("#header-nav").find(".dropdown").hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+    });
+</script>
+
+</div>
+
+	<div th:fragment="body-bottom-scripts">
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+
+		<script th:src="@{/js/scripts.js}"></script>
+
+		<!-- data table -->
+		<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+	</div>
+</body>
+</html>

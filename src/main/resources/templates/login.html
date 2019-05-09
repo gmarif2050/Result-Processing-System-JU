@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<h2>CSE JU Digital Seminar Library</h2>
+		<br>
+		<h5>Login to Access the Application!</h5>
+
+		
+
+<!-- 		<div class="bg-danger" th:if="${param.logout}"> -->
+<!-- 			You've been logged out! -->
+<!-- 		</div> -->
+
+		<form th:action="@{/login}" method="post">
+
+			<div class="form-group">
+				<input th:value="${user.username}" name="username" id="username" type="text" placeholder="Enter username!" required="required" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<input th:value="${user.password}" name="password" id="password" type="password" placeholder="Enter password!" required="required" class="form-control" />
+			</div>
+			
+			<div class="bg-warning" th:if="${error}">
+			Invalid username or password! 
+			</div>
+<br>
+			<button type="Log in" class="btn btn-primary btn-block">Log in</button>
+			
+			<p><br> <a href="/signup"  class="text-danger font-weight-bold">New User? Click this Link to Register First!</a> </p>
+		</form>
+
+	</div>
+
+
+</body>
+
+</html>

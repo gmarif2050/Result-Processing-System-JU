@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div th:replace="common/header :: common-header" />
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+<div class="container">
+<h2> JU Result Processing System </h2>
+<br>
+
+<form th:action="@{/showStudent}" method="post">
+		
+	<!--  <div class="form-group">
+	<input name="examRoll" id=examRoll th:value="${examRoll}" type="text" placeholder="Enter Exam Roll!" required="required" class="form-control" />
+	</div> -->
+	
+	<div class="form-group">
+			  <label for="sel1">Select department:</label>
+			  	<!-- <select th:field="*{student.dept}"> -->
+		 		  <select name="dept" class="form-control" id="sel1"> 
+		    		 <!-- <option value="Chemistry">Chemistry</option> -->
+		   		 	 <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+		   			 <option value="History">History</option>
+		   			 <option value="Information Technology">Information Technology</option>
+		   		 	 <option value="Marketing">Marketing</option>
+		   			 <option value="Physics">Physics</option>
+		   			 <option value="Statistics">Statistics</option>
+		 		 </select>
+			</div>
+	
+	<div class="form-group">
+	  <label for="sel2">Select admission session:</label>
+ 		 <select name="session" class="form-control" id="sel2">
+    		 <option value="2015-16">2015-16</option>
+    		 <option value="2014-15">2014-15</option>
+    		 <option value="2013-14">2013-14</option>
+    		 <option value="2012-13">2012-13</option>
+    		 <option value="2011-12">2011-12</option>
+ 		 </select>
+	</div>
+	
+	<button type="submit">Find Student</button>
+
+</form>
+
+</div>
+	<!-- <div class="container">
+		<h2> JU Result Processing System </h2>
+		<br>
+		<h3>Student List ALL </h3>
+		
+		<div th:each="student: ${studentlist}">
+			<tr>
+   			 <td th:text="${student.student_name}" />
+    		 <td th:text="${student.hall_name}" />
+   			 <td th:text="${student.dept_name}" />
+			</tr>
+		</div>
+
+		
+		
+		
+	</div>  -->
+
+
+</body>
+
+</html>
