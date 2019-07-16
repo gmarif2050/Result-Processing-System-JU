@@ -18,7 +18,7 @@
 		<li> <a th:href="@{/showStudent}"> Find and Show single student! <a/> </li>
 		<li> <a th:href="@{/batchMarkUpload}"> Upload Teacher made excel file of students Mark for a course! <a/>
 			<span class="bg-success" th:if="${batchmarkUpdateOkay}">Batch Mark Update Succesful! Verify some by manual check!</span>
-			<p class="bg-danger" th:if="${batchmarkUpdateFailed}">Batch Mark Update Failed! Invalid Excel entry! Excel Registration Number <span th:text="${regNumber}" /> does not exist on database! </p>
+			<p class="bg-warning" th:if="${batchmarkUpdateFailed}">Batch Mark Update Failed! Invalid Excel entry! Excel Registration Number <span th:text="${regNumber}" /> does not exist on database! </p>
 		 </li>
 	</ul>
    <span class="bg-success" th:if="${registrationOkay}"> Student Registration Succesful! </span>

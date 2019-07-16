@@ -22,12 +22,12 @@
 			<div class="form-group">
 				<!-- <label for="lastName">Last Name: </label> -->
 				<input name="examRoll" th:value="${student.examRoll}" type="text" placeholder="Enter Exam Roll!" required="required" class="form-control" />
-				<span class="bg-danger pull-right" th:if="${studentExists}"> Student Information already exists </span>
+				<span class="bg-warning pull-right" th:if="${studentExists}"> Student Information already exists </span>
 			</div>
 
 			<div class="form-group">
 				<input name="regNumber" th:value="${student.regNumber}" type="text" placeholder="Enter Registration Number!" required="required" class="form-control" />
-				<span class="bg-danger pull-right" th:if="${studentExists}"> Student Information already exists </span>
+				<span class="bg-warning pull-right" th:if="${studentExists}"> Student Information already exists </span>
 			</div>
 
 			

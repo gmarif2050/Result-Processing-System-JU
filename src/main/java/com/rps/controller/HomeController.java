@@ -35,48 +35,6 @@ import com.rps.entities.Program;
 import com.rps.entities.Student;
 
 
-/*
- * 	-> students(session, examroll, regid, gpa,cgpa
- * 
- * 
- * program(bsc msc) {session , dept, program_id, name, }	//program registration
- * 		-> final_Exam //exam registration
- * 			-> courses //course registration
- * 				-> then course er sathe student ke link koraite hobe
- * 
- * 
- * 2014-15 session er bsc/msc/phd course chalu korchi
- * dhori, CSE dept er bsc program er under e onek gulo final_exam thakbe
- *  jekono ekta final_exam er onek gulo course thakte pare(credit hr, course_name, course_type) 
- *   ekhn prottekta course er under e jekono session er onek student thakte pare
- *    (student guloke excel theke import kora jete pare ba manually add kora jete pare!) 
- * 		
- * 	taar maane prothom searching key hobe --- [session, program, department] 
- *  eita diye search korle pabo oi program er final_exam_list
- *  	final_exam create, list retrieve, update, delete
- *  
- *  kono ekta final_Exam e dhuke, course register korte hobe
- *  
- *  then oi course er under e 1toMany student thakbe...  table er primary key(reg,roll) 
- */
-
-
-
-/*
- * program_table(program_id, program_name, session, dept, *(1toMany)final_exam_table*)
- *	1,2,3 // 2014-15,2012-13 // bsc,msc,phd
- * 
- * final_exam_table(exam_id_pk, program_id_fk, exam_name, *(1toMany)course_reg_table* ) 
- * 	1,2,3  // 1st yr 1st sem, 2nd yr 2nd sem, 1st year final
- * 
- * course_reg_table(course_id_pk, exam_id_fk, courseNumber, courseName, creditHour, courseType)
- * 
- * student_table(regNumber_pk, session, dept, examRoll, classRoll, hall, student_name)
- * 
- * course_student_mark_table[many2many] (id, student_regNumber_fk, course_id_fk, tuto_mark, final_mark, tot_mark(by100))
- * 
- */
-
 @Controller
 @RequestMapping("/")
 public class HomeController {
