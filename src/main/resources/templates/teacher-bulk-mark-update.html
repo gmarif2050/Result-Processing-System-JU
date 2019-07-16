@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title> JU Result Processing Automation System </title>
+<head>
+<div th:replace="common/header :: common-header" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h2> JU Result Processing Automation System </h2>
+		<br>
+	 	
+	 	* Teachers Only * 
+	 	
+	 	<h4> Upload Teacher made excel file of students Mark for a course! </h4>
+	 	
+	 	<form 	th:action="@{/batchMarkUpload}" method="post" enctype="multipart/form-data">
+		
+		 <input type="file" th:name="file">
+	
+		<button type="submit" value="import"> Upload Foramatted Excel File of Course Marks of Course Registerd students!</button>
+	
+	</form>
+	 		 
+	</div>
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <title>CSE JU Digital Seminar Library</title>
-
+<div th:replace="common/header :: common-header" />
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
@@ -32,6 +32,9 @@
 				<td>Hall</td>
 				<td>Phone</td>
 				<td>Email</td>
+				<td>Father's Name</td>
+				<td>Mother's Name</td>
+				<td>Operations</td>
 			</tr>
 			
 				<tr>
@@ -41,22 +44,25 @@
 	    		 <td th:text="${student.hall}" />
 	   			 <td th:text="${student.phone}" />
 	   			 <td th:text="${student.email}" />
+	   			 <td th:text="${student.fathersName}" />
+	   			 <td th:text="${student.mothersName}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> View Enrolled Programs </a></td>
 				</tr>
 	 	
 	 	</table>
 	 	<br>
-	 	<h4>Degree Details::  </h4> 
+	 	<h4>Program Details:  </h4> 
 	 	
 	 	<table style="width:100%">
 			<tr>
-				<td> Degree Name </td>
+				<td> Program Code </td>
 				<td> CGPA Upto Now </td>
 				<td> Operations </td>
 			</tr>
 			<tr>
-   			 <td th:text="${degree.degreeName}" />
-   			 <td th:text="${degree.cumulativeGPAtillNow}" />
-   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}(regNumber=${student.regNumber}, degreeId=${degree.degreeId})}"> View Final Exams of the Degree </a></td>
+   			 <td th:text="${program.programCode}" />
+   			 <td th:text="${program.cumulativeGPAtillNow}" />
+   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}(regNumber=${student.regNumber}, programId=${program.programId})}"> View Final Exams of the Program </a></td>
 			</tr>
 	 	</table>
 	 	
@@ -66,6 +72,7 @@
 		<table style="width:100%">
 		
 			<tr>
+				<td>Exam number</td>
 				<td>Exam name</td>
 				<td>Obtained GPA</td>
 				<td>Operations</td>
@@ -73,32 +80,18 @@
 			
 			<div th:each="exam: ${finalexamlist}"> 
 				<tr>
+				<td th:text="${exam.examNumber}" />
 	   			 <td th:text="${exam.examName}" />
 	   			 <td th:text="${exam.GPA}" />
-	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}/{examId} (regNumber=${student.regNumber}, degreeId=${degree.degreeId}, examId=${exam.examId})}"> See/update Mark Sheet of Final Exam! </a> </td>
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}/{examId} (regNumber=${student.regNumber}, programId=${program.programId}, examId=${exam.examId})}"> See/update Mark Sheet! </a> </td>
 				</tr>
 	 		</div> 
 	 	</table>
-		
-	 	
-	 	<br><h4> Add new Final Exam for this student for the degree! </h4>
-	 	
-
-	 	<form th:action="@{/showDetailDegrees/{regNumber}/{degreeId}(regNumber=${student.regNumber}, degreeId=${degree.degreeId})}" method="post">
 	
-			<input name="examName" type="text" placeholder="Enter new Final Exam Name!" required="required" class="form-control"/>
-
-			<button type="submit" class="btn btn-primary">Add New Exam!</button>
-	
-		</form>
 	 		
-	 	
-		
-		
-		
 	</div>
 
-
+<div th:replace="common/header :: footer" />
 </body>
 
 </html>

@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <title>CSE JU Digital Seminar Library</title>
-
 <head>
+<div th:replace="common/header :: common-header" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		table, th, td {
@@ -20,36 +20,39 @@
 		<h2> JU Result Processing System </h2>
 		<br>
 		<h4>Student list of Session <span th:text="${studentlist[0].session}"> </span> ,  Department of <span th:text="${studentlist[0].dept}"> </span> </h4>
-		<table style="width:100%">
-		
-			<tr>
-				<td>Sudent Name</td>
-				<td>Exam Roll</td>
-				<td>Reg Number</td>
-				<td>Hall</td>
-				<td>Phone</td>
-				<td>Email</td>
-				<td>Operations</td>
-			</tr>
+			<table style="width:100%">
 			
-			<div th:each="student: ${studentlist}"> 
 				<tr>
-	   			 <td th:text="${student.name}" />
-	   			 <td th:text="${student.examRoll}" />
-	   			 <td th:text="${student.regNumber}" />
-	    		 <td th:text="${student.hall}" />
-	   			 <td th:text="${student.phone}" />
-	   			 <td th:text="${student.email}" />
-	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> See student Degrees/Details </a> </td>
+					<td>Sudent Name</td>
+					<td>Exam Roll</td>
+					<td>Reg Number</td>
+					<td>Hall</td>
+					<td>Phone</td>
+					<td>Email</td>
+					<td>Father's Name</td>
+					<td>Mother's Name</td>
+					<td> Operations </td>
 				</tr>
-	 		</div> 
+			<div th:each="student: ${studentlist}"> 	
+					<tr>
+		   			 <td th:text="${student.name}" />
+		   			 <td th:text="${student.examRoll}" />
+		   			 <td th:text="${student.regNumber}" />
+		    		 <td th:text="${student.hall}" />
+		   			 <td th:text="${student.phone}" />
+		   			 <td th:text="${student.email}" />
+		   			 <td th:text="${student.fathersName}" />
+		   			 <td th:text="${student.mothersName}" />
+		   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> See Enrolled Programs </a> </td>
+					</tr>
+	 			</div>
 	 	</table>
 		
 		
 		
 	</div>
 
-
+<div th:replace="common/header :: footer" />
 </body>
 
 </html>

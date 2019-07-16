@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <title>CSE JU Digital Seminar Library</title>
-
 <head>
+<div th:replace="common/header :: common-header" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		table, th, td {
@@ -20,7 +20,7 @@
 		<h2> JU Result Processing System </h2>
 		<br>
 		<h4>Student TimeLine of <span th:text="${student.session}"> </span> ,  Department of <span th:text="${student.dept}"> </span> </h4>
-		<table style="width:100%">
+			<table style="width:100%">
 		
 			<tr>
 				<td>Sudent Name</td>
@@ -29,6 +29,9 @@
 				<td>Hall</td>
 				<td>Phone</td>
 				<td>Email</td>
+				<td>Father's Name</td>
+				<td>Mother's Name</td>
+				<td>Operations</td>
 			</tr>
 			
 				<tr>
@@ -38,54 +41,61 @@
 	    		 <td th:text="${student.hall}" />
 	   			 <td th:text="${student.phone}" />
 	   			 <td th:text="${student.email}" />
+	   			 <td th:text="${student.fathersName}" />
+	   			 <td th:text="${student.mothersName}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> View Enrolled Programs </a></td>
 				</tr>
 	 	
 	 	</table>
 	 	
-	 	<h4>List of degrees:: </h4>
+	 	<h4>List of Programs: </h4>
 	 	
 	 	<table style="width:100%">
 		
 			<tr>
-				<td> Degree Name </td>
+				<td> Program Name </td>
 				<td> CGPA Upto Now </td>
+				<td> Operations </td>
 				<td> Operations </td>
 			</tr>
 			
-			<div th:each="degree: ${degreelist}"> 
+			<div th:each="program: ${degreelist}"> 
 				<tr>
-	   			 <td th:text="${degree.degreeName}" />
-	   			 <td th:text="${degree.cumulativeGPAtillNow}" />
-	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{degreeId}(regNumber=${student.regNumber}, degreeId=${degree.degreeId})}"> View Final Exams of the Degree </a></td>
+	   			 <td th:text="${program.programCode}" />
+	   			 <td th:text="${program.cumulativeGPAtillNow}" />
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}/del(regNumber=${student.regNumber},programId=${program.programId})}"> Delete Program </a></td>
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}(regNumber=${student.regNumber}, programId=${program.programId})}"> View Final Exams of the Program </a></td>
 				</tr>
 	 		</div> 
 	 	</table>
 	 	
+	 	<br><br>
+	 	<h4> Add Program & Syllabus wise Course Structure to the Student </h4>
 	 	
-	 	<h4> Add new Degree for this student! </h4>
-	 	
-	 	<form th:action="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}" method="post">
+	 	<form th:action="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}" method="post" enctype="multipart/form-data">
 	
-		<div class="form-group">
+		 <div class="form-group">
 		  <label for="sel2">Select admission session:</label>
-	 		 <select name="degreeName" class="form-control" id="sel2">
+	 		 <select name="programCode" class="form-control" id="sel2">
 	    		 <option value="BSc">BSc</option>
 	    		 <option value="MSc">MSc</option>
 	    		 <option value="Phd">Phd</option>
 	 		 </select>
-		</div>
-	
-		<button type="submit">Add Degree</button>
+		</div> 
+		
+		 <input type="file" th:name="file">
+		 
+		 <p font-size:18px; class="bg-warning" th:if="${programExists}"> Program With Same Name Exists Already! Delete the previous one for new update! </p>
+		<p font-size:18px; class="bg-warning" th:if="${excelFormatErrorExists}"> Update Incomplete due to Excel template data format error at <span th:text="${"sheetName"}"/>! Fix excel, Delete program, upload again! </p>
+		<button type="submit" value="import"> Upload Excel File of All Exam Course Structures </button>
 	
 	</form>
-	 		
-	 	
 		
 		
 		
 	</div>
 
-
+<div th:replace="common/header :: footer" />
 </body>
 
 </html>

@@ -1,10 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<title>CSE JU Digital Seminar Library</title>
+<title>JU Result Processing System</title>
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <div th:replace="common/header :: common-header" />
+	
 </head>
 
 <body>
@@ -15,9 +15,6 @@
 
 <form th:action="@{/showStudent}" method="post">
 		
-	<!--  <div class="form-group">
-	<input name="examRoll" id=examRoll th:value="${examRoll}" type="text" placeholder="Enter Exam Roll!" required="required" class="form-control" />
-	</div> -->
 	
 	<div class="form-group">
 			  <label for="sel1">Select department:</label>
@@ -48,26 +45,7 @@
 
 </form>
 
-</div>
-	<!-- <div class="container">
-		<h2> JU Result Processing System </h2>
-		<br>
-		<h3>Student List ALL </h3>
-		
-		<div th:each="student: ${studentlist}">
-			<tr>
-   			 <td th:text="${student.student_name}" />
-    		 <td th:text="${student.hall_name}" />
-   			 <td th:text="${student.dept_name}" />
-			</tr>
-		</div>
-
-		
-		
-		
-	</div>  -->
-
-
+<div th:replace="common/header :: footer" />
 </body>
 
 </html>

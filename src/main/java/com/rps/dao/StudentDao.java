@@ -11,4 +11,5 @@ public interface StudentDao extends CrudRepository<Student, Long>{
 	Student findByExamRoll(String examRoll);
 	Student findBySession(String session);
 	List<Student> findByDeptAndSession(String dept, String session);
+	List<Student> findByExamRollOrRegNumber(String examRoll, String regNumber);
 }

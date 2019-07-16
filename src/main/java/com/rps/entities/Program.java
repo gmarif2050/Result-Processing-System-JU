@@ -14,50 +14,54 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
-public class Degree{
+public class Program{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="degree_id_pk", nullable = false, updatable = false)
-	private Long degreeId;
-	private String degreeName;
+	@Column(name="program_id_pk", nullable = false, updatable = false)
+	private Long programId;
+	private String programCode;
 	private Double cumulativeGPAtillNow;
 	
-	@OneToMany(mappedBy="degree", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="program", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<FinalExam> finalExams = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "student_id_fk")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Student student;
 	
-	public Degree()
+	public Program()
 	{
 		
 	}
 
-	public Degree(String degreeName, Double cumulativeGPAtillNow, Student student) {
+	public Program(String programCode, Double cumulativeGPAtillNow, Student student) {
 		super();
-		this.degreeName = degreeName;
+		this.programCode = programCode;
 		this.cumulativeGPAtillNow = cumulativeGPAtillNow;
 		this.student = student;
 	}
 
-	public Long getDegreeId() {
-		return degreeId;
+	public Long getProgramId() {
+		return programId;
 	}
 
-	public void setDegreeId(Long degreeId) {
-		this.degreeId = degreeId;
+	public void setProgramId(Long programId) {
+		this.programId = programId;
 	}
 
-	public String getDegreeName() {
-		return degreeName;
+	public String getProgramCode() {
+		return programCode;
 	}
 
-	public void setDegreeName(String degreeName) {
-		this.degreeName = degreeName;
+	public void setaProgramCode(String programCode) {
+		this.programCode = programCode;
 	}
 
 	public Double getCumulativeGPAtillNow() {
@@ -68,6 +72,8 @@ public class Degree{
 		this.cumulativeGPAtillNow = cumulativeGPAtillNow;
 	}
 
+	
+
 	public Set<FinalExam> getFinalExams() {
 		return finalExams;
 	}
@@ -76,18 +82,16 @@ public class Degree{
 		this.finalExams = finalExams;
 	}
 
+	public void setProgramCode(String programCode) {
+		this.programCode = programCode;
+	}
+
 	public Student getStudent() {
 		return student;
 	}
 
 	public void setStudent(Student student) {
 		this.student = student;
-	}
-
-	@Override
-	public String toString() {
-		return "Degree [degreeId=" + degreeId + ", degreeName=" + degreeName + ", cumulativeGPAtillNow="
-				+ cumulativeGPAtillNow + ", finalExams=" + finalExams + ", student=" + student + "]";
 	}
 
 	

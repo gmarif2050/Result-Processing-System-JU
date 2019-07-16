@@ -22,24 +22,26 @@ public class FinalExam {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="exam_id_pk", nullable = false, updatable = false)
 	private Long examId;
+	private Long examNumber;
 	private String examName;
 	private BigDecimal GPA;
 
 	
-	@OneToMany(mappedBy="finalExam", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<MarkDistribution> markDistribution = new HashSet<>();
+	@OneToMany(mappedBy="finalExam", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<Course> courses = new HashSet<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "degree_id_fk")
-	private Degree degree;
+	@JoinColumn(name = "program_id_fk")
+	private Program program;
 	
 	public FinalExam() {}
 	
-	public FinalExam(String examName, BigDecimal gPA, Degree degree) {
+	public FinalExam(Long examNumber, String examName, BigDecimal gPA, Program program) {
 		super();
+		this.examNumber = examNumber;
 		this.examName = examName;
 		GPA = gPA;
-		this.degree = degree;
+		this.program = program;
 	}
 
 	public Long getExamId() {
@@ -48,6 +50,14 @@ public class FinalExam {
 
 	public void setExamId(Long examId) {
 		this.examId = examId;
+	}
+
+	public Long getExamNumber() {
+		return examNumber;
+	}
+
+	public void setExamNumber(Long examNumber) {
+		this.examNumber = examNumber;
 	}
 
 	public String getExamName() {
@@ -66,29 +76,21 @@ public class FinalExam {
 		GPA = gPA;
 	}
 
-	public Set<MarkDistribution> getMarkDistribution() {
-		return markDistribution;
+	public Set<Course> getCourses() {
+		return courses;
 	}
 
-	public void setMarkDistribution(Set<MarkDistribution> markDistribution) {
-		this.markDistribution = markDistribution;
+	public void setCourse(Set<Course> courses) {
+		this.courses = courses;
 	}
 
-
-	public Degree getDegree() {
-		return degree;
+	public Program getProgram() {
+		return program;
 	}
 
-	public void setDegree(Degree degree) {
-		this.degree = degree;
+	public void setProgram(Program program) {
+		this.program = program;
 	}
 
-	@Override
-	public String toString() {
-		return "FinalExam [examId=" + examId + ", examName=" + examName + ", GPA=" + GPA + ", markDistribution="
-				+ markDistribution + ", degreePursuing=" + "]";
-	}
-	
-	
 	
 }

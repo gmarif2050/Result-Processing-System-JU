@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>CSE JU Digital Seminar Library</title>
+<head>
+<div th:replace="common/header :: common-header" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h2> JU Result Processing System </h2>
+		<br>
+	 	
+	 	<br><h4> Mark Update Page </h4>
+	 	
+
+	 	<form th:action="@{/showDetailDegrees/{regNumber}/{programId}/{examId}/{courseId} (regNumber=${student.regNumber}, programId=${program.programId}, examId=${exam.examId}, courseId=${markObj.courseId} ) }" method="post">
+	
+			Tutorial Mark: <input name="tutorialMark"  th:value="${markObj.tutorialMark}" type="text" placeholder="Enter Tutorial Mark!" required="required" class="form-control"/>
+			Final Exam Mark: <input name="finalExamMark"  th:value="${markObj.finalExamMark}" type="text" placeholder="Enter Final Exam Mark!" required="required" class="form-control"/>
+			<!-- Mark Achieved (Out of 100): <input name="markAchievedby100"  th:value="${markObj.markAchievedby100}" type="text" placeholder="Enter Obtained Mark!" required="required" class="form-control"/>
+			 -->
+			<br>
+			Course Code: <input name="courseCode"  th:value="${markObj.courseCode}" type="text" placeholder="Enter course Number!" required="required" class="form-control"/>
+			Course Name: <input name="courseName" th:value="${markObj.courseName}" type="text" placeholder="Enter course Name!" required="required" class="form-control"/>
+			No Of Credit Hour : <input name="noOfCredit" th:value="${markObj.noOfCredit}" type="text" placeholder="Enter Number of credit Hour!" required="required" class="form-control"/>
+			<br>
+			<button type="submit" class="btn btn-danger">Update/Insert Mark for <span th:text="${markObj.courseName}" /> Course!</button>
+		
+		<button class="btn btn-success" th:href="@{/showDetailDegrees/{regNumber}/{programId}/{examId} (regNumber=${student.regNumber}, programId=${program.programId}, examId=${exam.examId}) }">Back to MarkSheet</button>
+	
+		</form> 
+	 		 
+
+		
+	</div>
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>

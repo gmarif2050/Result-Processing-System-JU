@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class MarkDistribution {
+public class Course {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,15 +26,57 @@ public class MarkDistribution {
 	private String courseCode;
 	private String courseName;
 	private BigDecimal noOfCredit;
+	private BigDecimal tutorialMark;
+	private BigDecimal finalExamMark;
 	private BigDecimal markAchievedby100;
 	private BigDecimal gradePoint;
 	
 	@ManyToOne
 	@JoinColumn(name = "exam_id_fk")
 	private FinalExam finalExam;
+	
+	public Course() {}
+	
+	public Course(String courseCode, String courseName, BigDecimal noOfCredit,
+			BigDecimal tutorialMark, BigDecimal finalExamMark, BigDecimal markAchievedby100, BigDecimal gradePoint,
+			FinalExam finalExam) {
+		super();
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.noOfCredit = noOfCredit;
+		this.tutorialMark = tutorialMark;
+		this.finalExamMark = finalExamMark;
+		this.markAchievedby100 = markAchievedby100;
+		this.gradePoint = gradePoint;
+		this.finalExam = finalExam;
+	}
 
-	
-	
+	public BigDecimal getTutorialMark() {
+		return tutorialMark;
+	}
+
+	public void setTutorialMark(BigDecimal tutorialMark) {
+		this.tutorialMark = tutorialMark;
+	}
+
+
+	public BigDecimal getFinalExamMark() {
+		return finalExamMark;
+	}
+
+	public void setFinalExamMark(BigDecimal finalExamMark) {
+		this.finalExamMark = finalExamMark;
+	}
+
+
+	public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+
 	public String getCourseCode() {
 		return courseCode;
 	}

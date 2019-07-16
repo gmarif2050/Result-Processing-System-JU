@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<title>CSE JU Digital Seminar Library</title>
+<title> JU RPS </title>
 <head>
 <div th:replace="common/header :: common-header" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -34,7 +34,6 @@
 				<td>Email</td>
 				<td>Father's Name</td>
 				<td>Mother's Name</td>
-				<td>Operations</td>
 			</tr>
 			
 				<tr>
@@ -46,7 +45,6 @@
 	   			 <td th:text="${student.email}" />
 	   			 <td th:text="${student.fathersName}" />
 	   			 <td th:text="${student.mothersName}" />
-	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}(regNumber=${student.regNumber})}"> View Enrolled Programs </a></td>
 				</tr>
 	 	
 	 	</table>
@@ -93,9 +91,7 @@
 			<tr>
 				<td>Course Number</td>
 				<td>Course Name</td>
-				<td>Tutorial Mark</td>
-				<td>Final Exam Mark</td>
-				<td>Total Mark(by 100)</td>
+				<td>Obtained Mark(by 100)</td>
 				<td>Grade Point</td>
 				<td>Credit Hour</td>
 				<td>Operations</td>
@@ -105,17 +101,14 @@
 				<tr>
 	   			 <td th:text="${mark.courseCode}" />
 	   			 <td th:text="${mark.courseName}" />
-	   			 <td th:text="${mark.tutorialMark}" />
-	   			 <td th:text="${mark.finalExamMark}" />
 	   			 <td th:text="${mark.markAchievedby100}" />
 				 <td th:text="${mark.gradePoint}" />
 	   			 <td th:text="${mark.noOfCredit}" />
-	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}/{finalExamId}/{courseId} (regNumber=${student.regNumber}, programId=${program.programId}, finalExamId=${exam.examId}, courseId=${mark.courseId} )}"> Update mark! </a> </td>
+	   			 <td> <a th:href="@{/showDetailDegrees/{regNumber}/{programId}/{examId}/{courseId} (regNumber=${student.regNumber}, programId=${program.programId}, examId=${exam.examId}, courseId=${mark.courseId} )}"> Update mark! </a> </td>
 				</tr>
 	 		</div> 
 	 	</table>
-	 		
-
+		
 		
 	</div>
 

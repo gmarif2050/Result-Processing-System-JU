@@ -3,34 +3,25 @@
 <title>CSE JU Digital Seminar Library</title>
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
-	
-	
-	<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div th:replace="common/header :: common-header" />
 </head>
 
 <body>
 
 <div th:replace="common/header :: jusite" />
-
   
 	
 
-<div class="container"> 
-	   <ul>
-	<li> <a th:href="@{/updateStudent}"> Add new student! <a/> </li>
-	<li> <a th:href="@{/showStudent}"> Find and Show single student! <a/> </li>
+<div font-size:28px class="container"> 
+	<ul>
+		<li> <a th:href="@{/updateStudent}"> Add new student! <a/> </li>
+		<li> <a th:href="@{/showStudent}"> Find and Show single student! <a/> </li>
+		<li> <a th:href="@{/batchMarkUpload}"> Upload Teacher made excel file of students Mark for a course! <a/>
+			<span class="bg-success" th:if="${batchmarkUpdateOkay}">Batch Mark Update Succesful! Verify some by manual check!</span>
+			<p class="bg-danger" th:if="${batchmarkUpdateFailed}">Batch Mark Update Failed! Invalid Excel entry! Excel Registration Number <span th:text="${regNumber}" /> does not exist on database! </p>
+		 </li>
 	</ul>
-   
+   <span class="bg-success" th:if="${registrationOkay}"> Student Registration Succesful! </span>
  </div>   
 
 <div th:replace="common/header :: footer" />

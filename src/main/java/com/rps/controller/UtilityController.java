@@ -34,10 +34,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.rps.dao.FinalExamDao;
-import com.rps.dao.MarkDistributionDao;
+import com.rps.dao.CourseDao;
 import com.rps.dao.StudentDao;
 import com.rps.entities.FinalExam;
-import com.rps.entities.MarkDistribution;
+import com.rps.entities.Course;
 import com.rps.entities.Student;
 
 @Controller
@@ -46,16 +46,16 @@ public class UtilityController {
 	@Autowired
 	FinalExamDao finalExamDao;
 	@Autowired
-	MarkDistributionDao markDistributionDao;
+	CourseDao courseDao;
 	@Autowired
 	StudentDao studentDao;
 	
-	@RequestMapping(value="/showDetailDegrees/{regNumber}/{degreeId}/{finalExamId}/generate-pdf", method=RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value="/showDetailDegrees/{regNumber}/{programId}/{finalExamId}/generate-pdf", method=RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     ResponseEntity<InputStreamResource> newsReport(@PathVariable Long finalExamId, @PathVariable String regNumber) throws IOException, DocumentException, ParseException {
 
 		Student student = studentDao.findByRegNumber(regNumber);
 		FinalExam finalExam = finalExamDao.findByExamId(finalExamId);
-		List<MarkDistribution> marklist = markDistributionDao.findByFinalExam(finalExam);
+		List<Course> marklist = courseDao.findByFinalExam(finalExam);
 		
         // Written seperate method
         ByteArrayInputStream byteArrayInputStream = employeeGeneratePdf(student, marklist, finalExam);
@@ -68,7 +68,7 @@ public class UtilityController {
     }
 
 
-    public ByteArrayInputStream employeeGeneratePdf(Student student, List<MarkDistribution> marklist, FinalExam finalExam) throws MalformedURLException, IOException {
+    public ByteArrayInputStream employeeGeneratePdf(Student student, List<Course> marklist, FinalExam finalExam) throws MalformedURLException, IOException {
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
@@ -91,7 +91,7 @@ public class UtilityController {
 
             int count = 0;
 
-            for (MarkDistribution mark : marklist) {
+            for (Course mark : marklist) {
                 count ++ ;
 
                 Font font = FontFactory.getFont(FontFactory.COURIER, 8);
@@ -171,7 +171,7 @@ public class UtilityController {
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             
-            para = new Paragraph(finalExam.getDegree().getDegreeName() + " "+ finalExam.getExamName() +"Examination", fontHeader);
+            para = new Paragraph(finalExam.getProgram().getProgramCode() + " "+ finalExam.getExamName() +"  Examination", fontHeader);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             
@@ -185,11 +185,15 @@ public class UtilityController {
             para = new Paragraph("Name: " + student.getName(), font1);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
-
-            para = new Paragraph("Department: " + student.getDept(), font1);
+            
+            para = new Paragraph("Father's Name: " + student.getFathersName(), font1);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             
+            para = new Paragraph("Mother's Name: " + student.getMothersName(), font1);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+
             para = new Paragraph("Registration No: " + student.getRegNumber(), font1);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
@@ -201,6 +205,11 @@ public class UtilityController {
             para = new Paragraph("Session: " + student.getSession(), font1);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
+            
+            para = new Paragraph("Department: " + student.getDept(), font1);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
             
             para = new Paragraph(" ", fontHeader);
             document.add(para);
