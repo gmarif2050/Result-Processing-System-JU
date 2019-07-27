@@ -41,7 +41,7 @@
 <body>
 <div th:replace="common/header :: jusite" />
 	<div class="container">
-		<h1 align="center"> <a th:href="@{/tabulation/{teacherId}/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
+		<h1 align="center"> <a th:href="@{/tabulation/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
 		<br>
 		<br>
 		
@@ -108,7 +108,7 @@
 			</tr>
 			
 			<div th:each="mark: ${markList}">
-					<div th:if= "${mark.remarks == 'PASSED'}" > 
+					<div th:if= "${mark.letterGrade != 'F'}" > 
 						<tr>
 							<td th:text="${mark.courseNumber}"></td>
 							<td th:text="${mark.courseName}"></td>
@@ -125,8 +125,8 @@
 						</tr>
 					</div>
 					
-					<div th:if= "${mark.remarks != 'PASSED'}" > 
-						<tr bgcolor="#ffc107">
+					<div th:if= "${mark.letterGrade == 'F'}" > 
+						<tr style="background-color:#FF7F7F">
 							<td th:text="${mark.courseNumber}"></td>
 							<td th:text="${mark.courseName}"></td>
 							<td th:text="${mark.courseCredit}"></td>

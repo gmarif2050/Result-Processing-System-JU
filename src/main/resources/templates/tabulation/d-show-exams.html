@@ -36,10 +36,10 @@
 <body>
 <div th:replace="common/header :: jusite" />
 	<div class="container">
-		<h1 align="center"> <a th:href="@{/tabulation/{teacherId}/showExams (teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
+		<h1 align="center"> <a th:href="@{/tabulation/showExams (teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
 		<br>
 
-	 	<form th:action="@{/tabulation/{teacherId}(teacherId=${teacherId})}" onsubmit="myButton.disabled = true; return true;" method="post">
+	 	<form th:action="@{/tabulation/showExams}" onsubmit="myButton.disabled = true; return true;" method="post">
 			
 			
 			<div style="font-size: 13pt" class="form-group">

@@ -1,5 +1,6 @@
 package com.rps.entities.tabulation;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,12 +11,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.rps.entities.security.Authority;
 
 @Entity
-public class Teacher {
+public class Teacher  implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,6 +31,10 @@ public class Teacher {
 	private String phone;
 	private String email;
 	private String password;
+	
+	//@Transient
+	private String username;
+	
 	
 	@OneToMany(mappedBy="teacher",fetch=FetchType.LAZY)
 	//@Cascade({CascadeType.ALL})
@@ -42,7 +51,7 @@ public class Teacher {
 		this.texams = texams;
 	}
 
-	public Teacher() { }
+	public Teacher() {  }
 
 	public Long getTeacherId() {
 		return teacherId;
@@ -99,5 +108,52 @@ public class Teacher {
 	public void setTexams(Set<TExam> texams) {
 		this.texams = texams;
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		//Empty set of GrantedAuthority Object
+		Set<GrantedAuthority> authorities= new HashSet<>();
+		
+		//All roles of this user are added to the GrantedAuthority Set
+		authorities.add(new Authority("ROLE_USER"));
+		
+		//the collection set of GrantedAuthority containing RoleName-Authority Object is returned then
+		return authorities;
+	}
+
+	public String getUsername() {
+		this.username = this.email;
+		return email;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+		this.email = username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
 	
 }

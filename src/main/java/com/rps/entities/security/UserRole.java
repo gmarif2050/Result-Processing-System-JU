@@ -1,5 +1,5 @@
-/*
-package com.rps.entities;
+
+package com.rps.entities.security;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.rps.entities.tabulation.Teacher;
 
-@Entity
-@Table(name="user_role")
+//@Entity
+//@Table(name="user_role")
 public class UserRole {
 	
 	@Id
@@ -21,7 +22,7 @@ public class UserRole {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
-	private User us;
+	private Teacher teacher;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
@@ -30,11 +31,15 @@ public class UserRole {
 	public UserRole() {
 		
 	}
-
-	public UserRole(User user, Role role) {
-		this.us = user;
+	
+	public UserRole(Long userRoleId, Teacher teacher, Role role) {
+		super();
+		this.userRoleId = userRoleId;
+		this.teacher = teacher;
 		this.role = role;
 	}
+
+
 
 	public Long getUserRoleId() {
 		return userRoleId;
@@ -44,12 +49,12 @@ public class UserRole {
 		this.userRoleId = userRoleId;
 	}
 
-	public User getUser() {
-		return us;
+	public Teacher getTeacher() {
+		return teacher;
 	}
 
-	public void setUser(User user) {
-		this.us = user;
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 
 	public Role getRole() {
@@ -59,7 +64,7 @@ public class UserRole {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
 	
 	
 }
-*/

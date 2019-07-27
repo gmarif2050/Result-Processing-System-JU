@@ -41,7 +41,7 @@
 <body>
 <div th:replace="common/header :: jusite" />
 	<div class="container">
-		<h1 align="center"> <a th:href="@{/tabulation/{teacherId}/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
+		<h1 align="center"> <a th:href="@{/tabulation/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
 		<br>
 		<br>
 		
@@ -73,6 +73,9 @@
 			</tr>
 			<tr class="success">
    			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/prepareTabulationSheet (teacherId=${teacherId}, texamId=${texam.texamId})}">  View Tabulation Sheet!  </a> </td> 
+			</tr>
+			<tr class="warning">
+   			 	<td> <a th:href="@{/storage/addStudent}">  Student Information Entry  </a> </td> 
 			</tr>
 	 	</table>
 

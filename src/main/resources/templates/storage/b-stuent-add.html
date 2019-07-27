@@ -4,41 +4,47 @@
 
 <head>
 <div th:replace="common/header :: common-header" />
+
+<style type="text/css">
+
+
+</style>
+
 </head>
 <body>
 <div th:replace="common/header :: jusite" />
 	<div class="container">
-		<h2> JU Result Processing System </h2>
+		<h2 align="center"> JU Result Processing System </h2>
 		<br>
-		<h5>Student Registration Form </h5>
+		<h1 align="center">Student Registration Form </h1>
 
 
 		<form th:action="@{/storage/addStudent}" method="post">
 
 			<div class="form-group">
-				<input name="name" th:value="${student.name}" type="text" placeholder="Enter Student Name!" required="required" class="form-control" />
+				<input style="font-size: 13pt" name="name" th:value="${student.name}" type="text" placeholder="Enter Student Name!" required="required" class="form-control" />
 			</div>
 			
 			<div class="form-group">
-				<input name="examRoll" th:value="${student.examRoll}" type="text" placeholder="Enter Exam Roll!" required="required" class="form-control" />
+				<input style="font-size: 13pt"  name="examRoll" th:value="${student.examRoll}" type="text" placeholder="Enter Exam Roll!" required="required" class="form-control" />
 				<span class="bg-warning pull-right" th:if="${studentExists}"> Student Information already exists </span>
 			</div>
 			
 			<div class="form-group">
-				<input name="classRoll" th:value="${student.classRoll}" type="text" placeholder="Enter Class Roll!" required="required" class="form-control" />
+				<input style="font-size: 13pt"   name="classRoll" th:value="${student.classRoll}" type="text" placeholder="Enter Class Roll!" required="required" class="form-control" />
 			</div>
 
 			<div class="form-group">
-				<input name="regNumber" th:value="${student.regNumber}" type="text" placeholder="Enter Registration Number!" required="required" class="form-control" />
+				<input style="font-size: 13pt"   name="regNumber" th:value="${student.regNumber}" type="text" placeholder="Enter Registration Number!" required="required" class="form-control" />
 				<span class="bg-warning pull-right" th:if="${studentExists}"> Student Information already exists </span>
 			</div>
 
 			
 			<div class="form-group">
-				<input name="session" th:value="${student.session}" type="text" placeholder="Enter admission session!" required="required" class="form-control" />
+				<input style="font-size: 13pt"   name="session" th:value="${student.session}" type="text" placeholder="Enter admission session!" required="required" class="form-control" />
 			</div>
 
-			<div class="form-group">
+			<div style="font-size: 13pt" class="form-group">
 			  <label for="sel1">Select department:</label>
 			  	<select th:field="*{student.dept}">
 		 		 <!-- <select name="dept" th:value="${student.dept}" class="form-control" id="sel1"> -->
@@ -53,23 +59,23 @@
 			</div>
 			
 			<div class="form-group">
-				<input name="hall" th:value="${student.hall}" type="text" placeholder="Enter hall name!" required="required" class="form-control" />
+				<input style="font-size: 13pt" name="hall" th:value="${student.hall}" type="text" placeholder="Enter hall name!" required="required" class="form-control" />
 			</div>
 
-			<div class="form-group">
-				<input name="phone" th:value="${student.phone}" type="text" placeholder="Enter phone number!" required="required" class="form-control" />
+			<div   class="form-group">
+				<input  style="font-size: 13pt" name="phone" th:value="${student.phone}" type="text" placeholder="Enter phone number!" required="required" class="form-control" />
+			</div>
+			
+			<div   class="form-group">
+				<input  style="font-size: 13pt" name="email" th:value="${student.email}" type="text" placeholder="Enter verified email!" required="required" class="form-control" />
+			</div>
+			
+			<div   class="form-group">
+				<input style="font-size: 13pt"  name="fathersName" th:value="${student.fathersName}" type="text" placeholder="Enter father's Name!" required="required" class="form-control" />
 			</div>
 			
 			<div class="form-group">
-				<input name="email" th:value="${student.email}" type="text" placeholder="Enter verified email!" required="required" class="form-control" />
-			</div>
-			
-			<div class="form-group">
-				<input name="fathersName" th:value="${student.fathersName}" type="text" placeholder="Enter father's Name!" required="required" class="form-control" />
-			</div>
-			
-			<div class="form-group">
-				<input name="mothersName" th:value="${student.mothersName}" type="text" placeholder="Enter mother's Name!" required="required" class="form-control" />
+				<input style="font-size: 13pt"   name="mothersName" th:value="${student.mothersName}" type="text" placeholder="Enter mother's Name!" required="required" class="form-control" />
 			</div>
 
 		<!-- 	<div class="form-group"> 
@@ -86,7 +92,7 @@
 				<input name="password" th:value="${user.password}" type="password" placeholder="Enter password!" required="required" class="form-control" />
 			</div>  -->
 
-			<button type="submit" class="btn btn-primary btn-block">Register Student to Database!</button>
+			<button style="font-size: 13pt"   type="submit" class="btn btn-primary btn-block">Register Student to Database!</button>
 		</form>
 
 	</div>

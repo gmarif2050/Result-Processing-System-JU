@@ -3,6 +3,7 @@ package com.rps.service.tabulation;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,12 @@ public class TeacherServiceImpl implements TeacherService {
 	@Autowired
 	TeacherDao teacherDao;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Override
 	public void addTeacher(Teacher teacher) {
+		teacher.setPassword(bCryptPasswordEncoder.encode(teacher.getPassword()));
 		teacherDao.save(teacher);
 	}
 	

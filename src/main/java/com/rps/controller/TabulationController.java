@@ -1,5 +1,6 @@
 package com.rps.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,6 +10,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,13 +105,15 @@ public class TabulationController {
 	@PostMapping(value="/login")
 	public String tloginPost(Model model, @ModelAttribute("teacher") Teacher teacher)
 	{
+		teacher.setEmail(teacher.getUsername());
+		
 		long teacherId = teacherService.authenticateTeacher(teacher);
 		
 		model.addAttribute("teacherId", teacherId);
 
 		if(teacherId != -1)
 		{
-			return "tabulation/tabulator-front-page";
+			return "tabulation/d-show-exams";
 		}
 		else 
 		{
@@ -143,9 +148,13 @@ public class TabulationController {
 		return "tabulation/tabulator-front-page";
 	}
 	
-	@GetMapping(value="/{teacherId}/showExams")
-	public String showExams(Model model, @PathVariable("teacherId") Long teacherId)
+	@GetMapping(value="/showExams")
+	public String showExams(HttpServletRequest request, Model model)
 	{
+		String email = request.getUserPrincipal().getName();
+		Teacher teacher = teacherService.getTeacherByEmail(email);
+		Long teacherId = teacher.getTeacherId();
+		
 		TExam texam = new TExam();
 		model.addAttribute("texam", texam);
 		model.addAttribute("teacherId", teacherId);

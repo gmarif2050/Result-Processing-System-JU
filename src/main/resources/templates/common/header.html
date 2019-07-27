@@ -86,7 +86,7 @@ body {
 <div class="container">
 <div class="row">
     <div class="col-lg-4">
-        <a th:href=@{"/"}>
+        <a th:href="@{/tabulation/showExams}">
             <img src="/media/image/logo-v3.png" alt="Jahangirnagar University" class="juniv-logo">
         </a>
 	</div>
@@ -103,10 +103,7 @@ body {
          </div>
          
           <div class="top-contact-info-2">
-                <a href="/login" class="d-inline-block"> Login </a> |
-                <a href="/discussion?type=JOB_CIRCULAR" class="d-inline-block"> Career </a> |
-                <a href="https://mail.google.com/a/juniv.edu/" target="_blank" class="d-inline-block"> Webmail </a> |
-                <a href="/custom/slug/contact-us" class="d-inline-block"> Contact </a>
+                <a style="font-size: 10pt" th:href="@{/tabulation/logout}" class="d-inline-block"> Logout </a> |
             </div>
         </div>
     </div>
