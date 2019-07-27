@@ -1,11 +1,11 @@
-package com.rps.dao;
+package com.rps.dao.storage;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.rps.entities.Program;
-import com.rps.entities.Student;
+import com.rps.entities.storage.Program;
+import com.rps.entities.storage.Student;
 
 
 public interface ProgramDao  extends CrudRepository<Program, Long>{

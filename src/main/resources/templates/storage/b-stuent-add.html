@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<title>CSE JU Digital Seminar Library</title>
+<title>RPS JU</title>
 
 <head>
 <div th:replace="common/header :: common-header" />
@@ -13,7 +13,7 @@
 		<h5>Student Registration Form </h5>
 
 
-		<form th:action="@{/updateStudent}" method="post">
+		<form th:action="@{/storage/addStudent}" method="post">
 
 			<div class="form-group">
 				<input name="name" th:value="${student.name}" type="text" placeholder="Enter Student Name!" required="required" class="form-control" />

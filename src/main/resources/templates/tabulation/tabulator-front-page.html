@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>RPS JU</title>
+
+<head>
+<div th:replace="common/header :: common-header" />
+</head>
+
+<body>
+
+<div th:replace="common/header :: jusite" />
+
+<div font-size:13pt class="container"> 
+	<ul>
+		<li>
+			<a th:href="@{/tabulation/{teacherId}/addExam (teacherId=${teacherId}) }"> Exam Information Entry! <a/> 
+		</li>
+		<li> 
+			<a th:href="@{/tabulation/{teacherId}/showExams (teacherId=${teacherId}) }"> Show Exams! <a/> 
+		</li>
+	</ul>
+ </div>   
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>

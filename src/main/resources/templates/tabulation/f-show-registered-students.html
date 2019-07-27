@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>RPS JU</title>
+<div th:replace="common/header :: common-header" />
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+	<h1 align="center"> <a th:href="@{/tabulation/{teacherId}/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
+		<br>
+		
+		<h3 align="center">Final exam tabulated </h4>
+		<table class="table table-striped table-bordered" style="width: 100%">
+		
+			<tr>
+				<td> Enrolled Program </td>
+				<td>Exam Session</td>
+				<td>Exam number</td>
+				<td>Exam name</td>
+				<td>Operations</td>
+			</tr>
+			
+			<tr>
+				<td th:text="${texam.programCode}" />
+				<td th:text="${texam.session}" />
+				<td th:text="${texam.texamNumber}" />
+   			 	<td th:text="${texam.texamName}" />
+   			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course (teacherId=${teacherId}, texamId=${texam.texamId})}">  View Exam Activity Homepage!</a> </td> 
+			</tr>
+	 	</table>
+	 	<br><br>
+	 	<h3 align="center">Course Information </h4>
+		<table class="table table-striped table-bordered" style="width: 100%">
+
+			<tr>
+				<td>Course Code</td>
+				<td>Course Name</td>
+				<td>Course Credit</td>
+				<td>Total Tutorial Marks</td>
+				<td>Total Final Marks</td>
+				<td>Course Type</td>
+				<td>Operations</td>
+				<td>Operations</td>
+			</tr>
+			
+			<tr>
+				<td th:text="${tcourse.tcourseCode}" />
+				<td th:text="${tcourse.tcourseName}" />
+   			 	<td th:text="${tcourse.tcourseCredit}" />
+   			 	<td th:text="${tcourse.totalTutorialMark}" />
+   			 	<td th:text="${tcourse.totalFinalMark}" />
+   			 	<td th:text="${tcourse.tcourseType}" />
+   			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/registrationConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}"> Student Registration Configuration</a> </td> 
+   			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/courseConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">Course Configuration Menu!</a> </td> 
+			</tr>
+	 	
+	 	</table>
+	 	
+	 	<br><br>
+	 	
+	 	<h3 align="center">Registered Students for this Course</h4>
+		<table class="table table-striped table-bordered" style="width: 100%">
+
+			<tr>
+				<!-- <td>Session</td> -->
+				<td>Registration No.</td>
+				<td>Exam Roll</td>
+				<td>Class Roll</td>
+				<td>Operations</td>
+			</tr>
+			
+			<div th:each="tstudent: ${tstudentSet}"> 
+				<tr>
+					<!-- <td th:text="${tstudent.session}" /> -->
+					<td th:text="${tstudent.regNumber}" />
+					<td th:text="${tstudent.examRoll}" />
+					<td th:text="${tstudent.classRoll}" />
+	   			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/student/{tstudentId} (teacherId=${teacherId}, tstudentId=${tstudent.tstudentId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">Remove Registration!</a> </td> 
+				</tr>
+	 		</div> 
+	 	</table>
+	 	
+	</div>
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>

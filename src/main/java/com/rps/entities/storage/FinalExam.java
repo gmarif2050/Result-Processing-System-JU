@@ -1,4 +1,4 @@
-package com.rps.entities;
+package com.rps.entities.storage;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -25,7 +25,6 @@ public class FinalExam {
 	private Long examNumber;
 	private String examName;
 	private BigDecimal GPA;
-
 	
 	@OneToMany(mappedBy="finalExam", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();

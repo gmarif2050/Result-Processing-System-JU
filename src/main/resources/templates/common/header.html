@@ -4,6 +4,23 @@
 	
 <div th:fragment="common-header">
 
+<style>
+	
+body {
+    -webkit-animation: bgcolor 20s infinite;
+    animation: bgcolor 10s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+	body{
+	/* 	 background: -webkit-linear-gradient(left, #93B874, #C9DCB9); 
+	    background: -o-linear-gradient(right, #93B874, #C9DCB9);
+	    background: -moz-linear-gradient(right, #93B874, #C9DCB9); 
+	    background: linear-gradient(to right, #93B874, #C9DCB9); 
+	    background-color: #DDDDDD;  */
+	}
+</style>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -324,11 +341,6 @@
                                                                                           </div>
   </li>
                                                                                               
-  <li class="nav-item">
-      <a class="nav-link" href="/teachers">
-                                                  People
-      </a>
-  </li>
                                                                                                                               <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -374,11 +386,6 @@
                                                                                           </div>
   </li>
                                                                                               
-  <li class="nav-item">
-      <a class="nav-link" href="/journal">
-                                                  Journals
-      </a>
-  </li>
                                                                         
                 </ul>
             </div>

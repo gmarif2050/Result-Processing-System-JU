@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>RPS JU</title>
+
+<head>
+<div th:replace="common/header :: common-header" />
+</head>
+
+<body>
+
+<div th:replace="common/header :: jusite" />
+  
+	
+
+<div font-size:28px class="container"> 
+	<ul>
+		<li> 
+			<a th:href="@{/tabulation/signup}"> New Teacher Signup! <a/> 
+			<span class="bg-success" th:if="${signupdone}">Teacher Succesfully registerd!</span>
+		</li>
+		
+		<li> 
+			<a th:href="@{/tabulation/login}"> Teacher/Tabulator login! <a/>
+				
+		</li>
+		
+		<li> 
+			<a th:href="@{/tabulation/storage}"> New Student Register! <a/>
+				
+		</li>
+ </div>   
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>

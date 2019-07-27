@@ -1,4 +1,4 @@
-package com.rps.entities;
+package com.rps.entities.storage;
 
 import java.util.HashSet;
 import java.util.Set;

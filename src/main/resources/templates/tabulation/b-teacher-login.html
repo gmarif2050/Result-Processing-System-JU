@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>RPS JU</title>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<h2> Result Processing System JU </h2>
+		<br>
+		<h5>Teacher Login Form </h5>
+
+
+		<form th:action="@{/tabulation/login}" method="post" onsubmit="myButton.disabled = true; return true;">
+
+			<div class="form-group">
+				<input name="email" th:value="${teacher.email}" type="email" placeholder="Enter email!" required="required" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<input name="password" th:value="${teacher.password}" type="password" placeholder="Enter password!" required="required" class="form-control" />
+			</div>
+			
+			<p class="bg-danger pull-right" th:if="${loginFailed}"> Invalid email/password! </p>
+
+			<button type="submit" name="myButton" class="btn btn-primary btn-block">Login</button>
+		</form>
+
+	</div>
+
+
+</body>
+
+</html>

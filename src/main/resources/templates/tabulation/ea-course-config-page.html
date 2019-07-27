@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<title>RPS JU</title>
+<div th:replace="common/header :: common-header" />
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		  text-align: center; 
+   		 vertical-align: middle;
+		}
+
+		
+	</style>
+</head>
+
+<body>
+<div th:replace="common/header :: jusite" />
+	<div class="container">
+		<h1 align="center"> <a th:href="@{/tabulation/{teacherId}/showExams(teacherId=${teacherId})}"> Result Processing System - Home Page </a></h1>
+		<br>
+		
+		<h3 align="center">Final exam tabulated </h4>
+		<table class="table table-striped table-bordered" style="width: 100%">
+		
+			<tr>
+				<td> Enrolled Program </td>
+				<td>Exam Session</td>
+				<td>Exam number</td>
+				<td>Exam name</td>
+				<td>Operations</td>
+			</tr>
+			
+			<tr>
+				<td th:text="${texam.programCode}" />
+				<td th:text="${texam.session}" />
+				<td th:text="${texam.texamNumber}" />
+   			 	<td th:text="${texam.texamName}" />
+   			 	<td> <a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course (teacherId=${teacherId}, texamId=${texam.texamId})}"> View Exam Activity Homepage! </a> </td> 
+			</tr>
+	 	</table>
+	 	<br><br>
+	 	<h3 align="center">Course Information </h4>
+		<table class="table table-striped table-bordered" style="width: 100%">
+
+			<tr>
+				<td>Course Code</td>
+				<td>Course Name</td>
+				<td>Course Credit</td>
+				<td>Total Tutorial Marks</td>
+				<td>Total Final Marks</td>
+				<td>Course Type</td>
+				<!-- <td>Operations</td> -->
+			</tr>
+			
+			<tr>
+				<td th:text="${tcourse.tcourseCode}" />
+				<td th:text="${tcourse.tcourseName}" />
+   			 	<td th:text="${tcourse.tcourseCredit}" />
+   			 	<td th:text="${tcourse.totalTutorialMark}" />
+   			 	<td th:text="${tcourse.totalFinalMark}" />
+   			 	<td th:text="${tcourse.tcourseType}" />
+			</tr>
+	 	
+	 	</table>
+	 	
+	 	<br><br>
+	 	
+	 	<h2 align="center">Course Configuration</h2>
+	 	
+		<table class="table  table-bordered" style="width: 100%">
+
+			<tr class="success">
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/registrationConfig  (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				Student Registration!
+				</a> 
+				</td>
+				
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				Tutorial Marks Entry!
+				</a> 
+				</td>
+			</tr>
+			
+			<tr class="warning">	
+				
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				Internal Marks Entry!
+				</a> 
+				</td>
+				
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				External Marks Entry!
+				</a> 
+				</td>
+			</tr>
+			
+			<tr class="info">
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				Third Examiner Marks Entry!
+				</a> 
+				</td>
+				
+				<td> 
+				<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+				Print Third Examiner Papers!
+				</a> 
+				</td>
+			</tr>
+			
+			
+	 	</table>
+	 	
+	</div>
+
+<div th:replace="common/header :: footer" />
+</body>
+
+</html>
