@@ -36,10 +36,10 @@ public class TMark {
 	public TMark()
 	{
 		super();
-		this.tutorialMark = 0.0;
-		this.internalMark = 0.0;
-		this.externalMark = 0.0;
-		this.thirdExaminerMark = 0.0;
+		this.tutorialMark = null;
+		this.internalMark = null;
+		this.externalMark = null;
+		this.thirdExaminerMark = null;
 		this.totalMark = 0.0;
 		this.finalMark = 0.0;
 		this.gradePoint = 0.0;

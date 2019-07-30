@@ -39,7 +39,7 @@
 			</div>
 
 			<div class="form-group">
-				<input name="email" th:value="${teacher.email}" type="email" placeholder="Enter email!" required="required" class="form-control" />
+				<input name="email" th:value="${teacher.email}" type="email" pattern="[a-z0-9._%+-]+@juniv.edu"  placeholder="Enter email!" required="required" class="form-control" />
 				<span class="bg-danger pull-right" th:if="${emailExists}"> Email already exists </span>
 			</div>
 

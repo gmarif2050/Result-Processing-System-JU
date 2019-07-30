@@ -23,6 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
 	
 	@Override
 	public void addTeacher(Teacher teacher) {
+		teacher.setUsername(teacher.getEmail());
 		teacher.setPassword(bCryptPasswordEncoder.encode(teacher.getPassword()));
 		teacherDao.save(teacher);
 	}

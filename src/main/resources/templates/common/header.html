@@ -4,79 +4,13 @@
 	
 <div th:fragment="common-header">
 
-<style>
-	
-body {
-    -webkit-animation: bgcolor 20s infinite;
-    animation: bgcolor 10s infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
-}
-
-	body{
-	/* 	 background: -webkit-linear-gradient(left, #93B874, #C9DCB9); 
-	    background: -o-linear-gradient(right, #93B874, #C9DCB9);
-	    background: -moz-linear-gradient(right, #93B874, #C9DCB9); 
-	    background: linear-gradient(to right, #93B874, #C9DCB9); 
-	    background-color: #DDDDDD;  */
-	}
-</style>
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
-	
-	
-	<meta charset="utf-8">
- 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<title>Le's Bookstore</title>
-
-<!-- Bootstrap core CSS -->
-<link href="/css/bootstrap.min.css" rel="stylesheet" />
-
-<link href="/css/non-responsive.css" rel="stylesheet" />
-
-<!-- data table -->
-<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
-<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
-
-<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
-
-<!-- Custom styles for this template -->
-<link href="/css/style.css" rel="stylesheet" />
-
-<link rel="icon" href="/image/applie-touch-icon.png" />
 
 
-
-
-
-
-<link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107061083-1"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.10/jquery.lazy.min.js"></script>
 </div>
 
 <body>
@@ -85,25 +19,29 @@ body {
 
 <div class="container">
 <div class="row">
-    <div class="col-lg-4">
+	<div class="col-md-2"></div>
+    <div class="col-md-1">
         <a th:href="@{/tabulation/showExams}">
-            <img src="/media/image/logo-v3.png" alt="Jahangirnagar University" class="juniv-logo">
+            <img src="/media/image/logo.png" width="85" alt="Jahangirnagar University" class="juniv-logo">
         </a>
 	</div>
-    <div class="col-lg-8 text-right">
-        <div class="top-contact-info">
-            <a href="tel:880-2-7791045-51" class="d-inline-block">
-           	 <i class="fa fa-phone" aria-hidden="true"></i> 880-2-7791045-51</a>
-                
-             <a href="tel:880-2-7791052" class="d-inline-block">
-             <i class="fa fa-fax" aria-hidden="true"></i> Fax:880-2-7791052</a>
-             
-             <a href="mailto:registrar@juniv.edu" target="_top" class="d-inline-block">
-             <i class="fas fa-envelope"></i> registrar@juniv.edu</a>
-         </div>
+	
+	 <div class="col-md-5 ">
+	 	<div class="col-md-12">
+       <a th:href="@{/tabulation/showExams}">
+            <img src="/media/image/rpslogo.png" alt="JU RPS" class="juniv-logo">
+        </a>
+        </div>
+	</div>
+	<div class="col-md-2"></div>
+    <div class="col-md-2 text-right">
+  
+  		<div class="top-contact-info-2">
+  		<p></p>
+  		</div>
          
           <div class="top-contact-info-2">
-                <a style="font-size: 10pt" th:href="@{/tabulation/logout}" class="d-inline-block"> Logout </a> |
+                <a type="button"  style="font-size: 14pt;"  th:href="@{/tabulation/logout}" class="btn btn-danger d-inline-block"> <b>Logout</b> </a> 
             </div>
         </div>
     </div>
@@ -129,7 +67,7 @@ body {
 <!--     </nav> -->
     
 </div>
-
+<!-- 
 <div class="container" id="header-nav">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success main-nav">
         <div class="container">
@@ -142,16 +80,16 @@ body {
 
                                                                         
   <li class="nav-item">
-      <a class="nav-link" href="/"> Home </a>
+      <a style="font-size: 13pt" class="nav-link" href="/"> Home </a>
   </li>
    
  <li class="nav-item dropdown">                                                                                                                         <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Administration
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			<a class="dropdown-item" href=""> Chancellor </a>
+			<a style="font-size: 13pt" class="dropdown-item" href=""> Chancellor </a>
 			<a class="dropdown-item" href=""> Vice Chancellor </a>
 			<a class="dropdown-item" href=""> Pro Vice Chancellor </a>
 			<a class="dropdown-item" href=""> Treasurer </a>
@@ -162,12 +100,9 @@ body {
    </div>
   </li>
                                                                                               
-  <li class="nav-item">
-      <a class="nav-link" href="/academic-calendar"> Calendar </a>
-  </li>
   
- <li class="nav-item dropdown">                                                                                                                         <li class="nav-item dropdown">
-   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+ <li  class="nav-item dropdown">                                                                                                                         <li class="nav-item dropdown">
+   <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Faculties
    </a>
@@ -183,7 +118,7 @@ body {
    
   </li>
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Institutes
       </a>
@@ -203,7 +138,7 @@ body {
                                                                                           </div>
   </li>
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Center
       </a>
@@ -229,7 +164,7 @@ body {
                                                                                           </div>
   </li>
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Offices
       </a>
@@ -282,7 +217,7 @@ body {
                                                                                           </div>
   </li>
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Accommodations
       </a>
@@ -339,7 +274,7 @@ body {
   </li>
                                                                                               
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Campus Life
       </a>
@@ -362,7 +297,7 @@ body {
                                                                                           </div>
   </li>
                                                                                                                               <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+      <a style="font-size: 13pt" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Admission
       </a>
@@ -394,7 +329,7 @@ body {
 
 
 
-
+ -->
 
 
 
@@ -503,8 +438,12 @@ body {
 
 
 <div th:fragment="footer">
-<br><br>
-	<div class="container-fluid">
+
+	
+	<footer align="center" style="font-size: 13pt;"> <p class="text-primary" > &copy;  Copyright Jahangirnagar University(2019) </p>  </footer>
+	
+<br>
+	<!-- <div class="container-fluid">
     <div class="row separator"></div>
     <div class="row footer">
         <div class="container">
@@ -566,11 +505,11 @@ body {
                     Jahangirnagar University, Savar, Dhaka-1342, Bangladesh. Telephone: PABX: 880-2-7791045-51, Fax: 880-2-7791052
                 </div>
                 <div class="col-md-4 text-md-right">
-                    Â© 2018 Jahangirnagar University
+                    © 2018 Jahangirnagar University
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 

@@ -47,27 +47,55 @@ public class TMarkServiceImpl implements TMarkService {
 		
 		Double finalMark = tmark.getFinalMark();
 		
-		if(tmark.getThirdExaminerMark()==0.0)
+		if(tmark.getThirdExaminerMark()==null)
 		{
-			if(tmark.getExternalMark()==0.0)
-				finalMark = tmark.getInternalMark();
+			if(tmark.getExternalMark()==null)
+			{
+				if(tmark.getInternalMark()!=null)
+					finalMark = tmark.getInternalMark();
+			}
 			else 
 			{
-				finalMark = (tmark.getInternalMark()+tmark.getExternalMark())/(2.0);
+				if(tmark.getInternalMark()!=null && tmark.getExternalMark()!=null)
+				{
+					finalMark = (tmark.getInternalMark()+tmark.getExternalMark())/(2.0);
+				}
 			}
 		}
 		else 
 		{
-			finalMark = (tmark.getInternalMark()+tmark.getExternalMark()+tmark.getThirdExaminerMark())/(3.0);
+			if(tmark.getInternalMark()!=null && tmark.getExternalMark()!=null && tmark.getThirdExaminerMark()!=null)
+			{
+				
+				double inDiff = Math.abs(tmark.getThirdExaminerMark() - tmark.getInternalMark());
+				double exDiff = Math.abs(tmark.getThirdExaminerMark() - tmark.getExternalMark());
+				
+				if(inDiff >= exDiff)
+				{	
+					finalMark = (tmark.getExternalMark()+tmark.getThirdExaminerMark())/(2.0);
+				}
+				else 
+				{
+					finalMark = (tmark.getInternalMark()+tmark.getThirdExaminerMark())/(2.0);
+				}
+				
+				
+			}
 		}
 		
-		finalMark = UtilityService.round(finalMark, 1);
+		if(finalMark==null) {finalMark = 0.0; return;}
+		
+		finalMark = UtilityService.round(finalMark, 2);
 
 		tmark.setFinalMark(finalMark);
 		
-		Double totalMark = tmark.getTutorialMark() + tmark.getFinalMark();
-		tmark.setTotalMark(totalMark);
+		Double totalMark = 0.0;
 		
+		if(tmark.getTutorialMark() !=null && tmark.getFinalMark() != null)
+		{
+			totalMark = tmark.getTutorialMark() + tmark.getFinalMark();
+			tmark.setTotalMark(totalMark);			
+		}
 		
 		//gp //letter
 		TStudent tstudent = tmark.getTstudent();

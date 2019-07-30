@@ -1,11 +1,11 @@
 package com.rps.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -71,7 +71,7 @@ public class TabulationController {
 	public String tsignup(Model model)
 	{
 		Teacher teacher = new Teacher();
-		teacher.setName("hahah");
+		
 		model.addAttribute("teacher", teacher);
 		return "tabulation/a-teacher-signup";
 	}
@@ -84,7 +84,8 @@ public class TabulationController {
 		if(teacherTmp==null)
 		{
 			teacherService.addTeacher(teacher);
-			return "tabulation/landing-page";			
+			teacher.setPassword("");
+			return "tabulation/bb-teacher-login";			
 		}
 		else 
 		{
@@ -99,7 +100,7 @@ public class TabulationController {
 	{
 		Teacher teacher = new Teacher();
 		model.addAttribute("teacher", teacher);
-		return "tabulation/b-teacher-login";
+		return "tabulation/bb-teacher-login";
 	}
 	
 	@PostMapping(value="/login")
@@ -118,7 +119,7 @@ public class TabulationController {
 		else 
 		{
 			model.addAttribute("loginFailed", true);
-			return "tabulation/b-teacher-login";
+			return "tabulation/bb-teacher-login";
 		}
 	}
 	
@@ -168,13 +169,36 @@ public class TabulationController {
 		return "tabulation/d-show-exams";
 	}
 	
+	@PostMapping(value="/showExams")
+	public String showExamsPost(HttpServletRequest request, Model model, @ModelAttribute("texam") TExam texamDb)
+	{
+		String email = request.getUserPrincipal().getName();
+		Teacher teacher = teacherService.getTeacherByEmail(email);
+		Long teacherId = teacher.getTeacherId();
+		
+		texamDb.setTeacher(teacher);
+		texamService.addExam(texamDb);
+		
+		TExam texam = new TExam();
+		model.addAttribute("texam", texam);
+		model.addAttribute("teacherId", teacherId);
+		Set<TExam> texamSet = teacherService.findExams(teacherId);
+		
+		List<TExam> texamList = new ArrayList(texamSet);
+		Comparator<TExam> texamIdComparator = (a,b) -> Long.compare(a.getTexamId(), b.getTexamId());
+		Collections.sort(texamList, texamIdComparator.reversed());
+		
+		model.addAttribute("texamList", texamList);
+		return "tabulation/d-show-exams";
+	}
+	
 	@GetMapping(value="/{teacherId}/exam/{texamId}/delete")
 	public String removeExamGet(Model model, @PathVariable("teacherId") long teacherId, @PathVariable("texamId") long texamId)
 	{
 		TExam texam = texamService.getExam(texamId);
 		texamService.removeTExam(texam);
 		
-		model.addAttribute("texam", texam);
+		//model.addAttribute("texam", texam);
 		model.addAttribute("teacherId", teacherId);
 		Set<TExam> texamSet = teacherService.findExams(teacherId);
 		
@@ -257,6 +281,7 @@ public class TabulationController {
 			
 			TCourse tcourse = tstudent.getTcourse();
 			TMark tmark = tstudent.getTmark();
+			if(tmark==null) continue;
 
 			totalCreditHr += tcourse.getTcourseCredit();
 			totalWeightedGradePoint += (tmark.getGradePoint() * tcourse.getTcourseCredit());
@@ -369,6 +394,52 @@ public class TabulationController {
 		
 		TCourse tcourse = tcourseService.getTCourse(tcourseId);
 		model.addAttribute("tcourse", tcourse);
+		
+		List<TStudent> tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+		
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
+
+		ListIterator<TStudent> iter = tstudentList.listIterator();
+		
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
+		
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		    
+		}
+
+		
+		if(tstudentList.isEmpty()) 
+		{
+			model.addAttribute("thirdButtonDisabled", true);
+			model.addAttribute("thirdButtonEnabled", false);
+		}
+		else 
+		{
+			model.addAttribute("thirdButtonDisabled", false);
+			model.addAttribute("thirdButtonEnabled", true);
+		}
 		
 		return "tabulation/ea-course-config-page";
 	}
@@ -538,6 +609,10 @@ public class TabulationController {
 		List<TStudent> tstudentList = new ArrayList<>(tstudentSet);
 		Collections.sort(tstudentList);
 		
+		/*
+		 * for(TStudent tstudent: tstudentList) {
+		 * if(tstudent.getTmark().getTutorialMark() == 0.0 }
+		 */
 		TStudentListContainer tstudentListContainer = new TStudentListContainer();
 		tstudentListContainer.setTstudentList(tstudentList);
 		
@@ -555,6 +630,7 @@ public class TabulationController {
 	@PostMapping(value="/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry")
 	public String tutoMarkEntryPost(Model model, @ModelAttribute("tstudentListContainer") TStudentListContainer tstudentSetContainer,  @PathVariable("teacherId") Long teacherId, @PathVariable("texamId") Long texamId, @PathVariable("tcourseId") Long tcourseId)
 	{
+		
 		List<TStudent> tstudentList = tstudentSetContainer.getTstudentList();
 		
 		model.addAttribute("teacherId", teacherId);
@@ -569,8 +645,8 @@ public class TabulationController {
 		for(TStudent tstudent: tstudentList)
 		{
 			TStudent tstudentDb = tstudentService.getTStudent(tstudent.getTstudentId());
-			TMark tmarkDb = tmarkService.getTMarkByTStudent(tstudentDb);
 			
+			TMark tmarkDb = tstudentDb.getTmark();
 			
 			Double tutoMark = tstudent.getTmark().getTutorialMark();
 		//	System.out.println(tutoMark);
@@ -592,6 +668,52 @@ public class TabulationController {
 				tmarkService.updateAllMarks(tmarkDb);
 			}
 			
+		}
+		
+		tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+		
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
+
+		ListIterator<TStudent> iter = tstudentList.listIterator();
+		
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
+		
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		    
+		}
+
+		
+		if(tstudentList.isEmpty()) 
+		{
+			model.addAttribute("thirdButtonDisabled", true);
+			model.addAttribute("thirdButtonEnabled", false);
+		}
+		else 
+		{
+			model.addAttribute("thirdButtonDisabled", false);
+			model.addAttribute("thirdButtonEnabled", true);
 		}
 		
 		return "tabulation/ea-course-config-page";
@@ -625,6 +747,7 @@ public class TabulationController {
 	@PostMapping(value="/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry")
 	public String internalMarkEntryPost(Model model, @ModelAttribute("tstudentListContainer") TStudentListContainer tstudentSetContainer,  @PathVariable("teacherId") Long teacherId, @PathVariable("texamId") Long texamId, @PathVariable("tcourseId") Long tcourseId)
 	{
+System.out.println("internal post\n\nsf");
 		List<TStudent> tstudentList = tstudentSetContainer.getTstudentList();
 		
 		model.addAttribute("teacherId", teacherId);
@@ -662,6 +785,52 @@ public class TabulationController {
 			}
 		}
 		
+		
+		tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
+		ListIterator<TStudent> iter = tstudentList.listIterator();
+		
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
+		
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		    
+		}
+
+				
+		if(tstudentList.isEmpty()) 
+		{
+			model.addAttribute("thirdButtonDisabled", true);
+			model.addAttribute("thirdButtonEnabled", false);
+		}
+		else 
+		{
+			model.addAttribute("thirdButtonDisabled", false);
+			model.addAttribute("thirdButtonEnabled", true);
+		}
+		
 		return "tabulation/ea-course-config-page";
 	}
 	
@@ -693,7 +862,9 @@ public class TabulationController {
 	@PostMapping(value="/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry")
 	public String externalMarkEntryPost(Model model, @ModelAttribute("tstudentListContainer") TStudentListContainer tstudentSetContainer,  @PathVariable("teacherId") Long teacherId, @PathVariable("texamId") Long texamId, @PathVariable("tcourseId") Long tcourseId)
 	{
+		System.out.println("external post\n\n");
 		List<TStudent> tstudentList = tstudentSetContainer.getTstudentList();
+		
 		
 		model.addAttribute("teacherId", teacherId);
 		Teacher teacher = teacherService.getTeacher(teacherId);
@@ -706,6 +877,7 @@ public class TabulationController {
 		
 		for(TStudent tstudent: tstudentList)
 		{
+			
 			TMark tmarkDb = tmarkService.getTMarkByTStudent(tstudent);
 			TStudent tstudentDb = tstudentService.getTStudent(tstudent.getTstudentId());
 			
@@ -730,6 +902,53 @@ public class TabulationController {
 			}
 		}
 		
+		
+		tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
+		
+		ListIterator<TStudent> iter = tstudentList.listIterator();
+		
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
+		
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		}
+
+				
+		if(tstudentList.isEmpty()) 
+		{		
+			model.addAttribute("thirdButtonDisabled", true);
+			model.addAttribute("thirdButtonEnabled", false);
+		}
+		else 
+		{
+			model.addAttribute("thirdButtonDisabled", false);
+			model.addAttribute("thirdButtonEnabled", true);
+		}
+		
 		return "tabulation/ea-course-config-page";
 	}
 	
@@ -745,25 +964,41 @@ public class TabulationController {
 		TCourse tcourse = tcourseService.getTCourse(tcourseId);
 		model.addAttribute("tcourse", tcourse);
 		
-		Set<TStudent> tstudentSet =  tcourse.getTstudents();
+		List<TStudent> tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
 		
-		tstudentSet.removeIf(tstudent -> 
-		Math.abs(tstudent.getTmark().getExternalMark() - tstudent.getTmark().getInternalMark()) <= 10.0);
+		ListIterator<TStudent> iter = tstudentList.listIterator();
 		
-//		Iterator tstudentSetIter = tstudentSet.iterator();
-//		
-//		while(tstudentSetIter.hasNext())
-//		{
-//			TStudent tstudent = tstudentSetIter.next();
-//			double markDifference = ;
-//			System.out.println(markDifference);
-//			if(markDifference <= 10.0)
-//			{
-//				tstudentSet.remove(tstudent);
-//			}
-//		}
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
 		
-		List<TStudent> tstudentList = new ArrayList<>(tstudentSet);
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		    
+		}
+
+				
 		Collections.sort(tstudentList);
 		
 		TStudentListContainer tstudentListContainer = new TStudentListContainer();
@@ -813,6 +1048,54 @@ public class TabulationController {
 			}
 		}
 		
+
+		tstudentList =  tstudentService.getTStudentByTCourse(tcourse);
+
+		if(tstudentList.isEmpty())
+		{
+			model.addAttribute("noRegistration", true);
+		}
+		
+		ListIterator<TStudent> iter = tstudentList.listIterator();
+		
+		while(iter.hasNext()){
+			TStudent tstudent = iter.next();
+			TMark tmark = tstudent.getTmark();
+			
+			if(tmark==null || tmark.getExternalMark()==null || tmark.getInternalMark()==null)
+			{
+				iter.remove();
+				continue;
+			}
+			
+			double internalNormalized = tmark.getInternalMark()*100; 
+			internalNormalized /= (tcourse.getTotalFinalMark());
+			
+			double externalNormalized = tmark.getExternalMark()*100; 
+			externalNormalized /= (tcourse.getTotalFinalMark());
+		
+			double diff = Math.abs(externalNormalized-internalNormalized);
+	
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
+			{
+				iter.remove();
+			}
+		    
+		}
+
+				
+		if(tstudentList.isEmpty()) 
+		{
+			model.addAttribute("thirdButtonDisabled", true);
+			model.addAttribute("thirdButtonEnabled", false);
+		}
+		else 
+		{
+			model.addAttribute("thirdButtonDisabled", false);
+			model.addAttribute("thirdButtonEnabled", true);
+		}
+
 		return "tabulation/ea-course-config-page";
 	}
+	
 }

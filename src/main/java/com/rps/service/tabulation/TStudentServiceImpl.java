@@ -116,6 +116,8 @@ public class TStudentServiceImpl implements TStudentService {
 			
 			TStudent tstudent = tstudentDao.findByExamRollAndTcourse(examRoll, tcourse);
 			
+			if(tstudent==null) continue;
+			
 			removeTStudent(tstudent);
 		}
 		

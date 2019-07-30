@@ -35,7 +35,7 @@ public class TExam{
 	//@Cascade({CascadeType.ALL})
 	private Set<TCourse> tcourses = new HashSet<>();
 
-	public TExam() {}
+	public TExam() {texamNumber=(long) 0;}
 
 	public TExam(Long texamId, Long texamNumber, String texamName, String session, String programCode, Teacher teacher,
 			Set<TCourse> tcourses) {

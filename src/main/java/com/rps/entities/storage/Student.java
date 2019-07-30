@@ -24,6 +24,7 @@ public class Student implements Comparable<Student>{
 	private Long classRoll;
 	private String name;
 	private String session;
+	private String admissionSession;
 	private String dept;
 	private String hall;
 	private String phone;
@@ -38,6 +39,16 @@ public class Student implements Comparable<Student>{
 	public int compareTo(Student student) {		
 		return (int) (this.getRegNumber() - student.getRegNumber());
 	}
+	
+	public String getAdmissionSession() {
+		return admissionSession;
+	}
+
+
+	public void setAdmissionSession(String admissionSession) {
+		this.admissionSession = admissionSession;
+	}
+
 
 	public Long getRegNumber() {
 		return regNumber;
