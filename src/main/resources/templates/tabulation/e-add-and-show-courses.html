@@ -76,9 +76,18 @@
 
 	 <div class="row">
 	 	<div class="col-lg-4 text-left">
-			<button class="btn btn-success" href="#addform" data-toggle="collapse" data-target="#addform"> 
-			<b> Course Information Entry </b>
-			</button> 
+	 		<th:block th:switch="${updateLocked} ">
+			    <div th:case="true">
+			        <button class="disabled btn btn-success"> 
+						<b> Course Information Entry </b>
+					</button> 
+			    </div>
+			    <div th:case="*">
+			      <button class="btn btn-success" href="#addform" data-toggle="collapse" data-target="#addform"> 
+						<b> Course Information Entry </b>
+					</button> 
+			    </div>
+			</th:block>
 		</div>
 			
 			
@@ -89,9 +98,25 @@
 		</div>
 			
 		<div class="col-lg-4 text-right">
-			<button class="btn btn-danger " th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-				<b>Publish Tabulated Result</b>
-			</button>
+			<th:block th:switch="${updateLocked} ">
+			    <div th:case="true">
+			        <button class="disabled btn btn-success"> 
+						<b>Result Published!</b>
+					</button> 
+			    </div>
+			    <div th:case="*">
+			      <!--  -->
+			      <a onclick="return ConfirmDelete()" class="btn btn-danger " th:href="@{/tabulation/{teacherId}/exam/{texamId}/lockMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId})}">
+						<b>Publish Tabulated Result</b>
+					</a> 
+			    </div>
+			</th:block>
+		
+		
+		
+			
+				
+			</a>
 		</div>
 	</div>
 </div>
@@ -249,6 +274,18 @@
 	
 
 	</div>
+
+<script>
+
+function ConfirmDelete()
+{
+  var x = confirm("Confirm Result Publish & Mark Update Locking?");
+  if (x)
+      return true;
+  else
+    return false;
+}
+</script>
 
 <div th:replace="common/header :: footer" />
 </body>

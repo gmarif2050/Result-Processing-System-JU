@@ -43,18 +43,25 @@
 	 	<table class="table table-bordered" style="width: 100%">
 			<tr  style="font-size: 13pt" class="btn-success">
 				<td> Exam Session</td>
-				<td> Exam Name </td>
+<!-- 				<td> Exam Name </td> -->
 				<td> Exam Roll </td>
 				<td> Registration No </td>
 				<td> Class Roll </td>
+				<td> Operations</td>
 			</tr>
 			
 			<tr> 
 				<td th:text="${student.session}" />
-				<td th:text="${texam.texamName}" />
+				<!-- <td th:text="${texam.texamName}" /> -->
 				<th class="warning" th:text="${student.examRoll}" />
    			 	<th  th:text="${student.regNumber}" />
    			 	<td th:text="${student.classRoll}" />
+   			 	<td>
+   			 		<a  class="btn btn-info" th:href="@{/tabulation/{teacherId}/exam/{texamId}/printMarkSheet/{examRoll} (teacherId=${teacherId}, texamId=${texam.texamId}, examRoll=${student.examRoll})}">
+							<b>Print Mark Sheet</b>
+						</a>
+					</form>
+   			 	</td>
 			</tr>
 	 	</table>
 	 	<br>
@@ -69,7 +76,7 @@
 				<td> Tutorial </td>
 				<td> Internal </td>
 				<td> External </td>
-				<td style="padding: 0;"> Third Examiner </td>
+				<td > Third Examiner </td>
 				<td> Final Marks </td>
 				<td> Total Mark</td>
 				<td> GP </td>

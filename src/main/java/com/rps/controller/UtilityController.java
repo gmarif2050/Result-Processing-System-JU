@@ -38,15 +38,19 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.rps.dto.tabulation.MarkEntity;
+import com.rps.entities.storage.Student;
 import com.rps.entities.tabulation.TCourse;
 import com.rps.entities.tabulation.TExam;
 import com.rps.entities.tabulation.TMark;
 import com.rps.entities.tabulation.TStudent;
 import com.rps.entities.tabulation.Teacher;
+import com.rps.service.storage.StudentService;
 import com.rps.service.tabulation.TCourseService;
 import com.rps.service.tabulation.TExamService;
 import com.rps.service.tabulation.TStudentService;
 import com.rps.service.tabulation.TeacherService;
+import com.rps.utility.tabulation.UtilityService;
 
 @Controller
 public class UtilityController {
@@ -60,7 +64,8 @@ public class UtilityController {
 	TCourseService tcourseService;
 	@Autowired
 	TStudentService tstudentService;
-	
+	@Autowired
+	StudentService studentService;
 	
 	@RequestMapping(value="/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers", method=RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     ResponseEntity<InputStreamResource> newsReport(@PathVariable Long teacherId, @PathVariable Long texamId, @PathVariable Long tcourseId) throws IOException, DocumentException, ParseException {
@@ -96,7 +101,7 @@ public class UtilityController {
 		
 			double diff = Math.abs(externalNormalized-internalNormalized);
 	
-			if(Double.compare(diff, 20.0)>=1)
+			if(Double.compare(diff, Double.valueOf(20.0)) <= 0)
 			{
 				iter.remove();
 			}
@@ -310,6 +315,7 @@ public class UtilityController {
                 count ++ ;
                 
                 TMark tmark = tstudent.getTmark();
+                if(tmark==null) continue;
                 
                 Font font = FontFactory.getFont(FontFactory.COURIER, 9);
                 PdfPCell cell;
@@ -418,6 +424,264 @@ public class UtilityController {
             
             document.add( Chunk.NEWLINE );
 
+            
+//            Chunk underline = new Chunk("Thrid Examiner Papers");
+//            underline.setUnderline(0.1f, -2f); //0.1 thick, -2 y-location
+//            document.add(underline);
+//            
+
+            
+            
+            document.add(table);
+            document.close();
+        } catch (DocumentException ex) {
+            Logger.getLogger("PDF Download").log(Level.SEVERE, null, ex);
+        }
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+	
+	
+	
+	
+	//////////////////////////
+	@RequestMapping(value="/tabulation/{teacherId}/exam/{texamId}/printMarkSheet/{examRoll}", method=RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    ResponseEntity<InputStreamResource> MarkSheetPrint(@PathVariable Long teacherId, @PathVariable Long texamId, @PathVariable Long examRoll) throws IOException, DocumentException, ParseException {
+		
+List<TStudent> tstudentList = tstudentService.getTStudentByExamRoll(examRoll);
+		
+		List<MarkEntity> markList = new ArrayList<>();
+		
+		TExam texam = texamService.getExam(texamId);
+		Set<TCourse> tcourseSet = texam.getTcourses();
+		
+		Double totalCreditHr = 0.0;
+		Double totalWeightedGradePoint = 0.0; 
+		
+		for(TStudent tstudent : tstudentList)
+		{
+			if(tstudent.getTcourse().getTexam().getTexamId() != texam.getTexamId()) continue;
+			
+			MarkEntity mark = new MarkEntity();
+			
+			TCourse tcourse = tstudent.getTcourse();
+			TMark tmark = tstudent.getTmark();
+			if(tmark==null) continue;
+
+			totalCreditHr += tcourse.getTcourseCredit();
+			totalWeightedGradePoint += (tmark.getGradePoint() * tcourse.getTcourseCredit());
+			
+			mark.setCourseName(tcourse.getTcourseName());
+			mark.setCourseNumber(tcourse.getTcourseCode());
+			mark.setCourseCredit(tcourse.getTcourseCredit());
+			
+			mark.setTutorialMark(tmark.getTutorialMark());
+			mark.setInternalMark(tmark.getInternalMark());
+			mark.setExternalMark(tmark.getExternalMark());
+			mark.setThirdExaminerMark(tmark.getThirdExaminerMark());
+			mark.setFinalMark(tmark.getFinalMark());
+			mark.setTotalMark(tmark.getTotalMark());
+			mark.setGradePoint(tmark.getGradePoint());
+			mark.setLetterGrade(tmark.getLetterGrade());
+			mark.setRemarks(tmark.getRemarks());
+			
+			markList.add(mark);
+		}	
+		
+		Collections.sort(markList);
+		
+		Double gpa = 0.0;
+		
+		if(markList.size() == tcourseSet.size())
+		{
+			gpa = totalWeightedGradePoint/totalCreditHr;
+		}
+
+		
+		gpa = UtilityService.round(gpa, 2);
+		
+		
+		Student student = studentService.getStudentByExamRoll(examRoll);
+		
+        // Written seperate method
+        ByteArrayInputStream byteArrayInputStream = generatePdfMarkSheet(texam, student, markList, gpa, tstudentList);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=markSheet.pdf");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Document document = new Document(PageSize.LETTER_LANDSCAPE, 20, 20, 50, 25);
+         PdfWriter.getInstance(document, bos);
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(byteArrayInputStream));
+    }
+	
+	
+	
+	public ByteArrayInputStream generatePdfMarkSheet(TExam texam,Student student,List<MarkEntity> markList,Double gpa,List<TStudent> tstudentList)  throws MalformedURLException, IOException{
+		
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+
+            Font headFont = FontFactory.getFont(FontFactory.COURIER_BOLD, 10);
+            List<String> headers = Arrays.asList("Code", "Name", "Credit", "Tutorial", "Internal", "External", "Third Exam" , "Avg Mark", "Grand Total", "GP", "LG", "Remarks");
+            PdfPTable table = new PdfPTable(headers.size());
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{2,4,3,3,3,3,2,2,2,2,1,3});
+             
+            for (String string : headers) {
+                PdfPCell hcell;
+                hcell = new PdfPCell(new Phrase(string, headFont));
+                hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                table.addCell(hcell);
+            }
+
+            int count = 0;
+
+            for (MarkEntity mark: markList) {
+                count ++ ;
+                
+                Font font = FontFactory.getFont(FontFactory.COURIER, 9);
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase(mark.getCourseNumber().toString(), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getCourseName()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getCourseCredit()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+            
+                cell = new PdfPCell(new Phrase((mark.getTutorialMark()==null) ? Integer.valueOf(0).toString() : mark.getTutorialMark().toString(), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase((mark.getInternalMark()==null) ? Integer.valueOf(0).toString() : mark.getInternalMark().toString(), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase((mark.getExternalMark()==null) ? Integer.valueOf(0).toString() : mark.getExternalMark().toString(), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                
+                cell = new PdfPCell(new Phrase( (mark.getThirdExaminerMark()==null) ? Integer.valueOf(0).toString() : mark.getThirdExaminerMark().toString(), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getFinalMark()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getTotalMark()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getGradePoint()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getLetterGrade()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(mark.getRemarks()), font));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPaddingRight(2);
+                table.addCell(cell);
+                
+            }
+            
+            Font font = FontFactory.getFont(FontFactory.COURIER, 8);
+//            PdfPCell cell = new PdfPCell(new Phrase("", font));
+//            table.addCell(cell);
+//       
+            
+            PdfWriter.getInstance(document, out);
+            document.open();
+            Paragraph para = new Paragraph();
+            
+            
+            Font fontHeaderUnderLined = new Font(Font.FontFamily.HELVETICA, 11, Font.UNDERLINE);
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+            Font font1 = new Font(Font.FontFamily.COURIER, 10, Font.BOLD);
+
+            
+            Image logo = Image.getInstance("src/main/resources/static/media/image/ju_logo_original_v2.png");
+            logo.scaleAbsolute(50f, 50f);
+            logo.scaleToFit(60f, 60f);
+            logo.setAbsolutePosition(85, 745);
+            document.add(logo);
+         
+            para = new Paragraph("Jahangirnagar University", font1);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            para = new Paragraph("Department of " + texam.getTeacher().getDept(), fontHeader);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+         //   document.add( Chunk.NEWLINE );
+
+            para = new Paragraph(texam.getProgramCode() + " " + texam.getTexamName(), headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            document.add( Chunk.NEWLINE );
+
+            para = new Paragraph("Name : " + student.getName(), headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+
+            para = new Paragraph("Exam Roll: " + student.getExamRoll(), headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            
+            para = new Paragraph("Registration No: " + student.getRegNumber(), headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            
+            document.add( Chunk.NEWLINE );
+            
+            para = new Paragraph("Tabulated Mark Sheet", fontHeaderUnderLined);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            document.add( Chunk.NEWLINE );
+            
+            para = new Paragraph("Secured GPA: "+gpa, headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+            
+            document.add( Chunk.NEWLINE );
             
 //            Chunk underline = new Chunk("Thrid Examiner Papers");
 //            underline.setUnderline(0.1f, -2f); //0.1 thick, -2 y-location

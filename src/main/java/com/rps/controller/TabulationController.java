@@ -230,6 +230,11 @@ public class TabulationController {
 		TCourse tcourse = new TCourse();
 		model.addAttribute("tcourse", tcourse);
 		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
+		
 		return "tabulation/e-add-and-show-courses";
 	}
 	
@@ -353,6 +358,11 @@ public class TabulationController {
 		
 		model.addAttribute("tcourse", newTcourse);
 		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
+		
 		return "tabulation/e-add-and-show-courses";
 	}
 	
@@ -380,6 +390,11 @@ public class TabulationController {
 		TCourse newTcourse = new TCourse();
 		
 		model.addAttribute("tcourse", newTcourse);
+		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
 		
 		return "tabulation/e-add-and-show-courses";
 	}
@@ -439,6 +454,11 @@ public class TabulationController {
 		{
 			model.addAttribute("thirdButtonDisabled", false);
 			model.addAttribute("thirdButtonEnabled", true);
+		}
+		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
 		}
 		
 		return "tabulation/ea-course-config-page";
@@ -716,6 +736,11 @@ public class TabulationController {
 			model.addAttribute("thirdButtonEnabled", true);
 		}
 		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
+		
 		return "tabulation/ea-course-config-page";
 	}
 	
@@ -831,6 +856,10 @@ System.out.println("internal post\n\nsf");
 			model.addAttribute("thirdButtonEnabled", true);
 		}
 		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
 		return "tabulation/ea-course-config-page";
 	}
 	
@@ -947,6 +976,11 @@ System.out.println("internal post\n\nsf");
 		{
 			model.addAttribute("thirdButtonDisabled", false);
 			model.addAttribute("thirdButtonEnabled", true);
+		}
+		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
 		}
 		
 		return "tabulation/ea-course-config-page";
@@ -1094,8 +1128,42 @@ System.out.println("internal post\n\nsf");
 			model.addAttribute("thirdButtonDisabled", false);
 			model.addAttribute("thirdButtonEnabled", true);
 		}
-
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
 		return "tabulation/ea-course-config-page";
 	}
 	
+	@GetMapping(value="/{teacherId}/exam/{texamId}/lockMarkEntry")
+	public String lockResultEntry(Model model, @PathVariable("teacherId") long teacherId, @PathVariable("texamId") long texamId)
+	{
+		TExam texam = texamService.getExam(texamId);
+		
+		texam.setResultPublished(true);
+		texamService.addExam(texam);
+		
+		model.addAttribute("teacherId", teacherId);
+
+		model.addAttribute("texam", texam);
+		
+		Set<TCourse> tcourseSetDb = texamService.findCourses(texamId);
+		
+		//need to refactor set to list everywhere
+		List<TCourse> tcourseSet = new ArrayList<>(tcourseSetDb);
+		
+		Collections.sort(tcourseSet, (o1, o2) -> Long.compare(o1.getTcourseCode(), o2.getTcourseCode()));
+		
+		model.addAttribute("tcourseSet", tcourseSet);
+		
+		TCourse tcourse = new TCourse();
+		model.addAttribute("tcourse", tcourse);
+		
+		if(texam.isResultPublished()) 
+		{
+			model.addAttribute("updateLocked", true);
+		}
+		
+		return "tabulation/e-add-and-show-courses";
+	}
 }

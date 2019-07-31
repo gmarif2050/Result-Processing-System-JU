@@ -26,6 +26,7 @@ public class TExam{
 	private String texamName;
 	private String session;
 	private String programCode;
+	private boolean resultPublished;
 	
 	@ManyToOne
 	@JoinColumn(name = "teacher_id_fk")
@@ -35,7 +36,7 @@ public class TExam{
 	//@Cascade({CascadeType.ALL})
 	private Set<TCourse> tcourses = new HashSet<>();
 
-	public TExam() {texamNumber=(long) 0;}
+	public TExam() {texamNumber=(long) 0; resultPublished=false;}
 
 	public TExam(Long texamId, Long texamNumber, String texamName, String session, String programCode, Teacher teacher,
 			Set<TCourse> tcourses) {
@@ -47,6 +48,15 @@ public class TExam{
 		this.programCode = programCode;
 		this.teacher = teacher;
 		this.tcourses = tcourses;
+	}
+	
+
+	public boolean isResultPublished() {
+		return resultPublished;
+	}
+
+	public void setResultPublished(boolean resultPublished) {
+		this.resultPublished = resultPublished;
 	}
 
 	public Long getTexamId() {

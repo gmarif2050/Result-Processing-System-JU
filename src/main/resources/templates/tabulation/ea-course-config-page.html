@@ -97,14 +97,25 @@
 	 	
 	 	<div class="col-lg-4 text-left">
 			
-			<form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/registrationConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-				<button class=" btn btn-info text-center">
-						<b>Student Registration</b>
-				</button>
-			</form>
+			<th:block th:switch="${updateLocked} ">
+			    <div th:case="true">
+			        <button class=" btn btn-info text-center">
+							<b>Student Registration</b>
+					</button>
+			    </div>
+			    <div th:case="*">
+			        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/registrationConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+						<button class=" btn btn-primary text-center">
+								<b>Student Registration</b>
+						</button>
+					</form>
+			    </div>
+			</th:block>
 		</div>
 			
 		<div class="col-lg-4 text-center">
+		
+			
 			
 			<th:block th:switch="${noRegistration} ">
 			    <div th:case="true">
@@ -113,11 +124,20 @@
 					</button>
 			    </div>
 			    <div th:case="*">
-			        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-						<button class=" btn btn-warning text-center">
-							<b>Internal Marks Entry</b>
-						</button>
-					</form>
+			       <th:block th:switch="${updateLocked} ">
+					    <div th:case="true">
+					        <button class="disabled btn btn-warning text-center">
+								<b>Internal Marks Entry</b>
+							</button>
+					    </div>
+					    <div th:case="*">
+					        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+								<button class=" btn btn-warning text-center">
+									<b>Internal Marks Entry</b>
+								</button>
+							</form>
+					    </div>
+					</th:block>
 			    </div>
 			</th:block>
 		 
@@ -133,11 +153,22 @@
 						</button>
 				    </div>
 				    <div th:case="*">
-				        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-							<button class=" btn btn-warning text-center">
-								<b>Third Exam Marks Entry</b>
-							</button>
-						</form>
+				    	
+				    	<th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>Third Exam Marks Entry</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>Third Exam Marks Entry</b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+						
 				    </div>
 				</th:block>
 			
@@ -157,11 +188,20 @@
 						</button>
 				    </div>
 				    <div th:case="*">
-				        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-							<button class=" btn btn-warning text-center">
-								<b>Tutorial Marks Entry</b>
-							</button>
-						</form>
+				    	<th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>Tutorial Marks Entry</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>Tutorial Marks Entry</b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
 				    </div>
 				</th:block>
 			</div>
@@ -175,11 +215,22 @@
 						</button>
 				    </div>
 				    <div th:case="*">
-				        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-							<button class=" btn btn-warning text-center">
-								<b>External Marks Entry</b>
-							</button>
-						</form>
+				    
+				    	<th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>External Marks Entry</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>External Marks Entry</b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+						
 				    </div>
 				</th:block>
 			</div>
@@ -193,11 +244,22 @@
 						</button>
 				    </div>
 				    <div th:case="*">
-				        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-							<button class="btn btn-warning text-center">
-								<b>Print Third Exam Papers</b>
-							</button>
-						</form>
+				    	
+				    	<th:block th:switch="${thirdButtonDisabled} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>Print Third Exam Papers</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class="btn btn-warning text-center">
+										<b>Print Third Exam Papers</b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+						
 				    </div>
 				</th:block>
 							
@@ -218,11 +280,22 @@
 						</button>
 				    </div>
 				    <div th:case="*">
-				        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printAverageSheet (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-							<button class=" btn btn-primary text-center">
-								<b>Print Average Sheet</b>
-							</button>
-						</form>
+				    
+				    	<th:block th:switch="${noRegistration} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-primary text-center">
+									<b>Print Average Sheet</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printAverageSheet (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-primary text-center">
+										<b>Print Average Sheet</b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    
 				    </div>
 				</th:block>
 				
