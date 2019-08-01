@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RootController {
 	
 	@RequestMapping("/")
-	public String welcome()
+	public String ShowIndex()
 	{
 		return "redirect:/tabulation/showExams";
 	}

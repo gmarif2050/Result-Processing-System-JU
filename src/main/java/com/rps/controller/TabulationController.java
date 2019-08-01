@@ -198,13 +198,15 @@ public class TabulationController {
 		TExam texam = texamService.getExam(texamId);
 		texamService.removeTExam(texam);
 		
-		//model.addAttribute("texam", texam);
 		model.addAttribute("teacherId", teacherId);
 		Set<TExam> texamSet = teacherService.findExams(teacherId);
 		
 		List<TExam> texamList = new ArrayList(texamSet);
 		Comparator<TExam> texamIdComparator = (a,b) -> Long.compare(a.getTexamId(), b.getTexamId());
 		Collections.sort(texamList, texamIdComparator.reversed());
+		// haha
+		 texam = new TExam();
+		model.addAttribute("texam", texam);
 		
 		model.addAttribute("texamList", texamList);
 		return "tabulation/d-show-exams";
@@ -267,7 +269,6 @@ public class TabulationController {
 	@GetMapping(value="/{teacherId}/exam/{texamId}/viewMarkSheet/{examRoll}")
 	public String viewSingleMarkSheetGet(Model model, @PathVariable("teacherId") long teacherId, @PathVariable("texamId") long texamId, @PathVariable("examRoll") Long examRoll)
 	{
-		
 		List<TStudent> tstudentList = tstudentService.getTStudentByExamRoll(examRoll);
 		
 		List<MarkEntity> markList = new ArrayList<>();

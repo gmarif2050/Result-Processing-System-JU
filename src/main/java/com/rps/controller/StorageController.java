@@ -37,7 +37,7 @@ public class StorageController {
 	public String tsignupPost(@ModelAttribute("student") Student student)
 	{
 		studentService.addStudent(student);
-		return "storage/a-welcome-page";
+		return "tabulation/bb-teacher-login";
 	}
 	
 }

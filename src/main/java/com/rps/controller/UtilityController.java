@@ -68,7 +68,7 @@ public class UtilityController {
 	StudentService studentService;
 	
 	@RequestMapping(value="/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers", method=RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
-    ResponseEntity<InputStreamResource> newsReport(@PathVariable Long teacherId, @PathVariable Long texamId, @PathVariable Long tcourseId) throws IOException, DocumentException, ParseException {
+    ResponseEntity<InputStreamResource> printThirdExaminer(@PathVariable Long teacherId, @PathVariable Long texamId, @PathVariable Long tcourseId) throws IOException, DocumentException, ParseException {
 		
 		Teacher teacher = teacherService.getTeacher(teacherId);
 		
@@ -108,8 +108,10 @@ public class UtilityController {
 		    
 		}
 		
+		Collections.sort(tstudentList);
+		
         // Written seperate method
-        ByteArrayInputStream byteArrayInputStream = generatePdfMarkSheet(texam, tcourse, tstudentList);
+        ByteArrayInputStream byteArrayInputStream = generateThirdExamPapers(texam, tcourse, tstudentList);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=marksheet.pdf");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -119,7 +121,7 @@ public class UtilityController {
     }
 
 
-	public ByteArrayInputStream generatePdfMarkSheet(TExam texam, TCourse tcourse, List<TStudent> tstudentList)  throws MalformedURLException, IOException{
+	public ByteArrayInputStream generateThirdExamPapers(TExam texam, TCourse tcourse, List<TStudent> tstudentList)  throws MalformedURLException, IOException{
 		
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -224,11 +226,16 @@ public class UtilityController {
             
             document.add( Chunk.NEWLINE );
 
+            para = new Paragraph("Course Title: " + tcourse.getTcourseName(), headFont);
+            para.setAlignment(Element.ALIGN_CENTER);
+            document.add(para);
+
             para = new Paragraph("Course Code: " + tcourse.getTcourseCode(), headFont);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             
-            para = new Paragraph("Course Name: " + tcourse.getTcourseName(), headFont);
+            
+            para = new Paragraph("Course Credit: " + tcourse.getTcourseCredit(), headFont);
             para.setAlignment(Element.ALIGN_CENTER);
             document.add(para);
             
