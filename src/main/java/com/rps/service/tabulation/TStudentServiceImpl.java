@@ -128,6 +128,13 @@ public class TStudentServiceImpl implements TStudentService {
 		return tstudentDao.findByExamRoll(examRoll);
 	}
 
+	@Override
+	public TStudent getTStudentByExamRollAndTcourse(Long examRoll, TCourse tcourse) {
+		return tstudentDao.findByExamRollAndTcourse(examRoll, tcourse);
+	}
+	
+	
+
 	
 
 }

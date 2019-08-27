@@ -29,7 +29,7 @@
 		color: blue;
 		background-color: green;
 		border: none;
-		margin-top: 12px;
+		margin-top: 16px;
     		margin-bottom: 12px
 		}
 	</style>
@@ -87,14 +87,15 @@
 	 	
 <h5 align="center">
    	<a th:href="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/courseConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-   		Course Activity Board
+   		Course Activity DashBoard
    	</a>
+   	
 </h5>
-<hr>
-	 	
 
-	 <div class="row">
 	 	
+<hr>
+	 <div class="row">
+	 	 
 	 	<div class="col-lg-4 text-left">
 			
 			<th:block th:switch="${updateLocked} ">
@@ -105,7 +106,7 @@
 			    </div>
 			    <div th:case="*">
 			        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/registrationConfig (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-						<button class=" btn btn-primary text-center">
+						<button class=" btn btn-info text-center">
 								<b>Student Registration</b>
 						</button>
 					</form>
@@ -113,133 +114,45 @@
 			</th:block>
 		</div>
 			
-		<div class="col-lg-4 text-center">
-		
-			
-			
-			<th:block th:switch="${noRegistration} ">
-			    <div th:case="true">
-			        <button class="disabled btn btn-warning text-center">
-						<b>Internal Marks Entry</b>
-					</button>
-			    </div>
-			    <div th:case="*">
-			       <th:block th:switch="${updateLocked} ">
-					    <div th:case="true">
-					        <button class="disabled btn btn-warning text-center">
-								<b>Internal Marks Entry</b>
-							</button>
-					    </div>
-					    <div th:case="*">
-					        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-								<button class=" btn btn-warning text-center">
-									<b>Internal Marks Entry</b>
-								</button>
-							</form>
-					    </div>
-					</th:block>
-			    </div>
-			</th:block>
-		 
-		</div>
-			
-		<div class="col-lg-4 text-right">
-			
-			
-				<th:block th:switch="${thirdButtonDisabled} ">
-				    <div th:case="true">
-				        <button class="disabled btn btn-warning text-center">
-							<b>Third Exam Marks Entry</b>
-						</button>
-				    </div>
-				    <div th:case="*">
-				    	
-				    	<th:block th:switch="${updateLocked} ">
-						    <div th:case="true">
-						        <button class="disabled btn btn-warning text-center">
-									<b>Third Exam Marks Entry</b>
-								</button>
-						    </div>
-						    <div th:case="*">
-						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-									<button class=" btn btn-warning text-center">
-										<b>Third Exam Marks Entry</b>
-									</button>
-								</form>
-						    </div>
-						</th:block>
-						
-				    </div>
-				</th:block>
-			
-			
-		</div>
-	</div>
-
-<br>
-
-	<div class="row ">
-			
-			<div class="col-lg-4 text-left">
-				<th:block th:switch="${noRegistration} ">
-				    <div th:case="true">
-				        <button class="disabled btn btn-warning text-center">
-							<b>Tutorial Marks Entry</b>
-						</button>
-				    </div>
-				    <div th:case="*">
-				    	<th:block th:switch="${updateLocked} ">
-						    <div th:case="true">
-						        <button class="disabled btn btn-warning text-center">
-									<b>Tutorial Marks Entry</b>
-								</button>
-						    </div>
-						    <div th:case="*">
-						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-									<button class=" btn btn-warning text-center">
-										<b>Tutorial Marks Entry</b>
-									</button>
-								</form>
-						    </div>
-						</th:block>
-				    </div>
-				</th:block>
-			</div>
-			
+	
 			
 			<div class="col-lg-4 text-center">
+				
 				<th:block th:switch="${noRegistration} ">
 				    <div th:case="true">
-				        <button class="disabled btn btn-warning text-center">
-							<b>External Marks Entry</b>
+				        <button class="disabled btn btn-info text-center">
+							<b>Print Average Sheet</b>
 						</button>
 				    </div>
 				    <div th:case="*">
 				    
-				    	<th:block th:switch="${updateLocked} ">
+				    	<th:block th:switch="${noRegistration} ">
 						    <div th:case="true">
-						        <button class="disabled btn btn-warning text-center">
-									<b>External Marks Entry</b>
+						        <button class="disabled btn btn-info text-center">
+									<b>Print Average Sheet</b>
 								</button>
 						    </div>
 						    <div th:case="*">
-						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-									<button class=" btn btn-warning text-center">
-										<b>External Marks Entry</b>
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printAverageSheet (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-info text-center">
+										<b>Print Average Sheet</b>
 									</button>
 								</form>
 						    </div>
 						</th:block>
-						
+				    
 				    </div>
 				</th:block>
+				
+				
 			</div>
+			
 			
 			<div class="col-lg-4 text-right">
 				
 				<th:block th:switch="${thirdButtonDisabled} ">
 				    <div th:case="true">
-				        <button class="disabled btn btn-warning text-center">
+				        <button class="disabled btn btn-info text-center">
 							<b>Print Third Exam Papers</b>
 						</button>
 				    </div>
@@ -247,13 +160,13 @@
 				    	
 				    	<th:block th:switch="${thirdButtonDisabled} ">
 						    <div th:case="true">
-						        <button class="disabled btn btn-warning text-center">
+						        <button class="disabled btn btn-info text-center">
 									<b>Print Third Exam Papers</b>
 								</button>
 						    </div>
 						    <div th:case="*">
 						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printThirdExaminerPapers (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-									<button class="btn btn-warning text-center">
+									<button class="btn btn-info text-center">
 										<b>Print Third Exam Papers</b>
 									</button>
 								</form>
@@ -266,53 +179,407 @@
 			</div>
 					
 </div>
+
 			
 			
+			<br>
+			
+			
+			
+			
+			<h5 align="center"><a href="#">Manual Mark Entry (Web Form) </a></h5>
 			<hr>
-		<div class="row">
-			<div class="col-lg-4 text-center"></div>
-			<div class="col-lg-4 text-center">
-				
+		
+	<div class="row">
+	
+		<div class="col-lg-3 text-left">
 				<th:block th:switch="${noRegistration} ">
 				    <div th:case="true">
-				        <button class="disabled btn btn-primary text-center">
-							<b>Print Average Sheet</b>
+				        <button class="disabled btn btn-warning text-center">
+							<b>Tutorial  </b>
 						</button>
 				    </div>
 				    <div th:case="*">
-				    
-				    	<th:block th:switch="${noRegistration} ">
+				    	<th:block th:switch="${updateLocked} ">
 						    <div th:case="true">
-						        <button class="disabled btn btn-primary text-center">
-									<b>Print Average Sheet</b>
+						        <button class="disabled btn btn-warning text-center">
+									<b>Tutorial  </b>
 								</button>
 						    </div>
 						    <div th:case="*">
-						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/printAverageSheet (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
-									<button class=" btn btn-primary text-center">
-										<b>Print Average Sheet</b>
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutoMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>Tutorial  </b>
 									</button>
 								</form>
 						    </div>
 						</th:block>
-				    
 				    </div>
 				</th:block>
-				
-				
 			</div>
-			<div class="col-lg-4 text-center"></div>
+			
+			<div class="col-lg-3 text-left">
+		
+			
+			
+			<th:block th:switch="${noRegistration} ">
+			    <div th:case="true">
+			        <button class="disabled btn btn-warning text-center">
+						<b>Internal </b>
+					</button>
+			    </div>
+			    <div th:case="*">
+			       <th:block th:switch="${updateLocked} ">
+					    <div th:case="true">
+					        <button class="disabled btn btn-warning text-center">
+								<b>Internal  </b>
+							</button>
+					    </div>
+					    <div th:case="*">
+					        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+								<button class=" btn btn-warning text-center">
+									<b>Internal  </b>
+								</button>
+							</form>
+					    </div>
+					</th:block>
+			    </div>
+			</th:block>
+		 
 		</div>
 			
 			
+			<div class="col-lg-3 text-left">
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b>External  </b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				    
+				    	<th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>External  </b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>External  </b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+						
+				    </div>
+				</th:block>
+			</div>
+			
+			
+		<div class="col-lg-3 text-center">
+			
+			
+				<th:block th:switch="${thirdButtonDisabled} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b>Third Examiner</b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				    	
+				    	<th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b>Third Examiner</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntry (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b>Third Examiner </b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+						
+				    </div>
+				</th:block>
+			
+			
 		</div>
-<br><br><br>
-	 	
-	 	
-	 		
-	 	
+		
+	
 	</div>
+		<br>
+		
+			<h5 align="center"><a href="#"> Automated Mark Entry (Excel Upload) </a></h5>
+			<hr>
+	<div class="row">
+		<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-danger text-center">
+							<b>Upload Tutorial</b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-danger text-center">
+									<b>Upload Tutorial</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form method="post" enctype="multipart/form-data" th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutorialMarkEntryExcelUpload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<input type="file" th:name="file">
+									<button type="submit" class=" btn btn-danger text-center">
+										<b>Upload Tutorial</b> 
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+		
+			<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-danger text-center">
+							<b>Upload Internal</b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-danger text-center">
+									<b>Upload Internal</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						       <form method="post" enctype="multipart/form-data" th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntryExcelUpload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<input type="file" th:name="file">
+									<button type="submit" class=" btn btn-danger text-center">
+										<b>Upload Internal</b> 
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+			
+			
+			<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-danger text-center">
+							<b>Upload External</b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-danger text-center">
+									<b>Upload External</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form method="post" enctype="multipart/form-data" th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntryExcelUpload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<input type="file" th:name="file">
+									<button type="submit" class=" btn btn-danger text-center">
+										<b>Upload External</b> 
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+			
+			<div class="col-lg-3 text-center">
+				
+				<th:block th:switch="${thirdButtonDisabled} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-danger text-center">
+							<b>Upload Third Examiner</b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				    	
+				    	 <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-danger text-center">
+									<b>Upload External</b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form method="post" enctype="multipart/form-data" th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntryExcelUpload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<input type="file" th:name="file">
+									<button type="submit" class=" btn btn-danger text-center">
+										<b>Upload Third Examiner</b> 
+									</button>
+								</form>
+						    </div>
+						</th:block>
 
+				    </div>
+				</th:block>
+						
+							
+			</div>
+			
+		</div>
+	
+<br>
+		
+		
+		
+			
+
+			<h5 align="center"><a href="#">Mark Entry Template for Examiners </a></h5>
+			<hr>
+	
+		<div class="row">
+		
+			<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b> Tutorial   </b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b> Tutorial   </b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/tutorialMarkEntryExcelDownload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b> Tutorial   </b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+		
+			<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b> Internal   </b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b> Internal   </b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/internalMarkEntryExcelDownload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b> Internal   </b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+			
+			
+			<div class="col-lg-3 text-left">
+			
+				<th:block th:switch="${noRegistration} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b> External   </b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				       <th:block th:switch="${updateLocked} ">
+						    <div th:case="true">
+						        <button class="disabled btn btn-warning text-center">
+									<b> External   </b>
+								</button>
+						    </div>
+						    <div th:case="*">
+						        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/externalMarkEntryExcelDownload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+									<button class=" btn btn-warning text-center">
+										<b> External   </b>
+									</button>
+								</form>
+						    </div>
+						</th:block>
+				    </div>
+				</th:block>
+	 
+			</div>
+			
+			<div class="col-lg-3 text-center">
+				
+				<th:block th:switch="${thirdButtonDisabled} ">
+				    <div th:case="true">
+				        <button class="disabled btn btn-warning text-center">
+							<b>Third Examiner </b>
+						</button>
+				    </div>
+				    <div th:case="*">
+				    	
+				    	<th:block th:switch="${thirdButtonDisabled} ">
+							    <div th:case="true">
+							        <button class="disabled btn btn-warning text-center">
+										<b>Third Examiner </b>
+									</button>
+							    </div>
+							    <div th:case="*">
+							    	<th:block th:switch="${updateLocked} ">
+									    <div th:case="true">
+									        <button class="disabled btn btn-warning text-center">
+												<b> External   </b>
+											</button>
+									    </div>
+									    <div th:case="*">
+									        <form th:action="@{/tabulation/{teacherId}/exam/{texamId}/course/{tcourseId}/thirdExaminerMarkEntryExcelDownload (teacherId=${teacherId}, texamId=${texam.texamId}, tcourseId=${tcourse.tcourseId})}">
+											<button class="btn btn-warning text-center">
+												<b>Third Examiner</b>
+											</button>
+										</form>
+									    </div>
+									</th:block>
+						    
+						    </div>
+						</th:block>
+						
+				    </div>
+				</th:block>
+							
+			</div>
+			
+		</div>
+ 	
+ 	</div>
+
+<br><br>
 <div th:replace="common/header :: footer" />
 </body>
 

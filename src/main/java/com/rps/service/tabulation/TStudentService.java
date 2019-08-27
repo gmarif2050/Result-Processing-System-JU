@@ -28,4 +28,8 @@ public interface TStudentService {
 	void removeTStudent(TStudent tstudent);
 
 	List<TStudent> getTStudentByExamRoll(Long examRoll);
+	
+	TStudent getTStudentByExamRollAndTcourse(Long examRoll, TCourse tcourse);
+	
+	
 }
