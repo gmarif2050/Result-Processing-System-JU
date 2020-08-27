@@ -1,5 +1,5 @@
 # Result-Processing-System-JU-Web-Application
-B.Sc. Final Semester project | Result Processing System Web Applicatioin Jahangirnagar University | Technology used - JavaEE, Spring Boot,  Hibernate, Spring Data JPA, Spring Security, Mysql 
+B.Sc. Final Semester project | Result Processing System Web Applicatioin Jahangirnagar University | Technology used - Java, Spring Boot, Hibernate, Spring Data JPA, Spring Security, Mysql 
 
 # Project Supervisor 
 Md. Rafsan Jani Sir,
